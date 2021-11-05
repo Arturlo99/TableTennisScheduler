@@ -5,7 +5,7 @@ USE `TTS`;
 CREATE TABLE T_EVENT (
   ID        int NOT NULL AUTO_INCREMENT, 
   PLACE     varchar(255) NOT NULL, 
-  `DATE`    date NOT NULL, 
+  `DATE`    datetime NOT NULL,
   ORGANIZER varchar(255) NOT NULL, 
   PRIMARY KEY (ID));
   
