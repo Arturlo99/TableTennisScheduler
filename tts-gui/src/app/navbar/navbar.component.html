@@ -1,12 +1,11 @@
 <mat-toolbar color = "primary" class = "mat-elevation-z6">
-
     <div class="button-container">
-        <button mat-fab>
+        <button mat-fab routerLink = "">
           <mat-icon>home</mat-icon>
         </button>
-      </div>
+    </div>
     <div class = "spacer"></div>
-    <button class="button-container" mat-button href = "">Tournaments</button>
-    <button class="button-container" mat-button >Profile</button>
-    <button class="button-container" mat-raised-button color = "accent" >Sign up</button>
+    <button class="button-container" mat-button routerLink = "/events/all">Tournaments</button>
+    <button class="button-container" mat-button routerLink = "" >Profile</button>
+    <button class="button-container" mat-raised-button color = "accent" routerLink = "" >Sign up</button>
 </mat-toolbar>
