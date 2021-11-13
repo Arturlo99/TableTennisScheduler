@@ -11,7 +11,7 @@ public class Match {
     private Integer id;
     private String finalResult;
     private String setResults;
-    private int eventId;
+    private int tournamentId;
     @ManyToMany
     @JoinTable(
             name = "t_match_user",
@@ -44,12 +44,12 @@ public class Match {
         this.setResults = setResults;
     }
 
-    public int getEventId() {
-        return eventId;
+    public int getTournamentId() {
+        return tournamentId;
     }
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
+    public void setTournamentId(int eventId) {
+        this.tournamentId = eventId;
     }
 
     public Set<User> getPlayers() {

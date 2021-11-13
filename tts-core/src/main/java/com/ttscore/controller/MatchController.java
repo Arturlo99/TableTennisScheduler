@@ -15,11 +15,7 @@ import java.util.List;
 @CrossOrigin(originPatterns = "http://localhost:4200")
 public class MatchController {
     @Autowired
-    private final MatchRepository matchRepository;
-
-    public MatchController(MatchRepository matchRepository) {
-        this.matchRepository = matchRepository;
-    }
+    private MatchRepository matchRepository;
 
     @GetMapping("/all")
     List<Match> all() {

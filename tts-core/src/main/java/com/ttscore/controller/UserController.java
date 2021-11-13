@@ -11,9 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(originPatterns = "http://localhost:4200")
 public class UserController {
     @Autowired
-    private final UserRepository userRepository;
-
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 }

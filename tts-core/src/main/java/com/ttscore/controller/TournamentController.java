@@ -11,15 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/tournaments")
 @CrossOrigin(originPatterns = "http://localhost:4200")
 public class TournamentController {
     @Autowired
-    private final TournamentRepository tournamentRepository;
-
-    public TournamentController(TournamentRepository tournamentRepository) {
-        this.tournamentRepository = tournamentRepository;
-    }
+    private TournamentRepository tournamentRepository;
 
     @GetMapping("/all")
     List<Tournament> all() {
