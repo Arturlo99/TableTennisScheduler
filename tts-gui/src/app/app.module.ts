@@ -10,6 +10,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BackgroundComponent } from './background/background.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsListComponent } from './events-list/events-list.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { EventsListComponent } from './events-list/events-list.component';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

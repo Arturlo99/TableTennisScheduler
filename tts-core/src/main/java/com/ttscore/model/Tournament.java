@@ -4,16 +4,19 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Table(name = "t_event")
+@Table(name = "t_tournament")
 @Entity
-public class Event {
+public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String place;
+    private String name;
+    private String city;
+    private String street;
     private LocalDateTime date;
     private String organizer;
-    @ManyToMany(mappedBy = "events")
+    private String description;
+    @ManyToMany(mappedBy = "tournaments")
     private Set<User> users;
 
     public Integer getId() {
@@ -24,12 +27,20 @@ public class Event {
         this.id = id;
     }
 
-    public String getPlace() {
-        return place;
+    public String getCity() {
+        return city;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public LocalDateTime getDate() {
@@ -54,5 +65,21 @@ public class Event {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

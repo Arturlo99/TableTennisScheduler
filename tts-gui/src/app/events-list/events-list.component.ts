@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Tournament } from '../models/tournament';
+import { TournamentService } from '../services/tournament.service';
 
 @Component({
   selector: 'app-events-list',
@@ -6,10 +10,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./events-list.component.css']
 })
 export class EventsListComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() { }
+  displayedColumns: string[] = ['name', 'place', 'date', 'enrolledPlayers'];
+  tournaments: Tournament[];
+  dataSource: MatTableDataSource<Tournament>;
+  currentDate;
 
-  ngOnInit(): void {
+  constructor(private tournamentService: TournamentService) {
+    this.currentDate = new Date()
   }
 
+  ngOnInit(): void {
+    this.tournamentService.findAll().subscribe(data => {
+      this.tournaments = data
+      this.dataSource = new MatTableDataSource(this.tournaments)
+      this.dataSource.paginator = this.paginator
+    })
+  }
 }

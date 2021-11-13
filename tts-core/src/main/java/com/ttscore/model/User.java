@@ -2,6 +2,7 @@ package com.ttscore.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Table(name = "t_user")
@@ -16,16 +17,14 @@ public class User {
     private String lastName;
     private Float rating;
     private String role;
-    private LocalDate creationDate;
-    @ManyToMany(mappedBy = "players")
-    private Set<Match> matches;
+    private LocalDateTime creationDate;
     @ManyToMany
     @JoinTable(
-            name = "t_user_event",
+            name = "t_user_tournament",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id")
+            inverseJoinColumns = @JoinColumn(name = "tournament_id")
     )
-    private Set<Event> events;
+    private Set<Tournament> tournaments;
 
     public Integer getId() {
         return id;
@@ -83,27 +82,19 @@ public class User {
         this.role = role;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Set<Match> getMatches() {
-        return matches;
+    public Set<Tournament> getEvents() {
+        return tournaments;
     }
 
-    public void setMatches(Set<Match> matches) {
-        this.matches = matches;
-    }
-
-    public Set<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setEvents(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
     }
 }

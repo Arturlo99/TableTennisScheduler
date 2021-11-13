@@ -9,9 +9,13 @@ public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    private User firstPlayer;
+    @ManyToOne
+    private User secondPlayer;
     private String finalResult;
     private String setResults;
-    private int eventId;
+    private int tournamentId;
     @ManyToMany
     @JoinTable(
             name = "t_match_user",
@@ -44,12 +48,12 @@ public class Match {
         this.setResults = setResults;
     }
 
-    public int getEventId() {
-        return eventId;
+    public int getTournamentId() {
+        return tournamentId;
     }
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
+    public void setTournamentId(int eventId) {
+        this.tournamentId = eventId;
     }
 
     public Set<User> getPlayers() {
@@ -58,5 +62,21 @@ public class Match {
 
     public void setPlayers(Set<User> players) {
         this.players = players;
+    }
+
+    public User getFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public void setFirstPlayer(User firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
+
+    public User getSecondPlayer() {
+        return secondPlayer;
+    }
+
+    public void setSecondPlayer(User secondPlayer) {
+        this.secondPlayer = secondPlayer;
     }
 }
