@@ -5,7 +5,7 @@ import { EventsListComponent } from './events-list/events-list.component';
 
 const routes: Routes = [
   { path: '', component: BackgroundComponent },
-  { path: 'events/all', component: EventsListComponent }
+  { path: 'tournaments/all', component: EventsListComponent }
 ];
 
 @NgModule({

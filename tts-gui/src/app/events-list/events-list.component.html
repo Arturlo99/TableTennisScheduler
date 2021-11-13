@@ -1,1 +1,49 @@
-<p>events-list works!</p>
+<div class="container">
+    <div style="position:relative; top:15px;">
+        <table mat-table [dataSource]="dataSource" class="table-striped">
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Tournament</th>
+                <td mat-cell *matCellDef="let tournament" [ngClass]="{
+            'negative-name' : (tournament.date | date : 'yyyyMMdd') < (currentDate | date : 'yyyyMMdd'),
+            'positive-name' : (tournament.date | date : 'yyyyMMdd') >= (currentDate | date : 'yyyyMMdd')
+             }" width="35%">
+                        <div class="link">{{tournament.name}}</div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="place">
+                <th mat-header-cell *matHeaderCellDef>Place</th>
+                <td mat-cell *matCellDef="let tournament" [ngClass]="{
+              'negative' : (tournament.date | date : 'yyyyMMdd') < (currentDate | date : 'yyyyMMdd'),
+              'positive' : (tournament.date | date : 'yyyyMMdd') >= (currentDate | date : 'yyyyMMdd')
+             }"> {{tournament.city}}, {{tournament.street}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let tournament" [ngClass]="{
+              'negative' : (tournament.date | date : 'yyyyMMdd') < (currentDate | date : 'yyyyMMdd'),
+              'positive' : (tournament.date | date : 'yyyyMMdd') >= (currentDate | date : 'yyyyMMdd')
+             }"> {{tournament.date | date :'longDate' :'pl'}} - {{tournament.date | date
+                    :'shortTime' :'pl'}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="enrolledPlayers">
+                <th mat-header-cell *matHeaderCellDef>Enrolled players</th>
+                <td mat-cell *matCellDef="let tournament" [ngClass]="{
+                'negative' : (tournament.date | date : 'yyyyMMdd') < (currentDate | date : 'yyyyMMdd'),
+                'positive' : (tournament.date | date : 'yyyyMMdd') >= (currentDate | date : 'yyyyMMdd')
+               }" width = 5%>{{tournament.enrolledPlayers}}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

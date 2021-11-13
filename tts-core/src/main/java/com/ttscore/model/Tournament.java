@@ -11,7 +11,8 @@ public class Tournament {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String place;
+    private String city;
+    private String street;
     private LocalDateTime date;
     private String organizer;
     private String description;
@@ -26,12 +27,20 @@ public class Tournament {
         this.id = id;
     }
 
-    public String getPlace() {
-        return place;
+    public String getCity() {
+        return city;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public LocalDateTime getDate() {

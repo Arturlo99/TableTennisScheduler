@@ -1,0 +1,39 @@
+table {
+  width: 100%;
+}
+
+.mat-header-cell {
+text-align:justify;
+font-size: medium;
+}
+
+.positive-name {
+color: black;
+font-size: 18px;
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.positive {
+font-size: medium;
+color: black;
+font-size: 16px;
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.negative {
+color: black;
+font-style: italic;
+background-color: rgb(221, 221, 221);
+}
+
+.negative-name {
+  color: black;
+  font-size: 18px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  background-color: rgb(221, 221, 221);
+  }
+
+.link{
+color: rgb(0, 0, 0);
+}
