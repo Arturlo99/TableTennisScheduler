@@ -4,16 +4,16 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Table(name = "t_event")
+@Table(name = "t_tournament")
 @Entity
-public class Event {
+public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String place;
     private LocalDateTime date;
     private String organizer;
-    @ManyToMany(mappedBy = "events")
+    @ManyToMany(mappedBy = "tournaments")
     private Set<User> users;
 
     public Integer getId() {

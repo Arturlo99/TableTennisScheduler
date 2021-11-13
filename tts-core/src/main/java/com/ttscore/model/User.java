@@ -21,11 +21,11 @@ public class User {
     private Set<Match> matches;
     @ManyToMany
     @JoinTable(
-            name = "t_user_event",
+            name = "t_user_tournament",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id")
+            inverseJoinColumns = @JoinColumn(name = "tournament_id")
     )
-    private Set<Event> events;
+    private Set<Tournament> tournaments;
 
     public Integer getId() {
         return id;
@@ -99,11 +99,11 @@ public class User {
         this.matches = matches;
     }
 
-    public Set<Event> getEvents() {
-        return events;
+    public Set<Tournament> getEvents() {
+        return tournaments;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setEvents(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
     }
 }

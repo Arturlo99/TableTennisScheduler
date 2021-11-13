@@ -1,9 +1,9 @@
 package com.ttscore.repository;
 
-import com.ttscore.model.User;
+import com.ttscore.model.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface TournamentRepository extends JpaRepository<Tournament, Integer> {
 }
