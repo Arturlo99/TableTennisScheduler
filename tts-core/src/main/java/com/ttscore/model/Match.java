@@ -9,6 +9,10 @@ public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    private User firstPlayer;
+    @ManyToOne
+    private User secondPlayer;
     private String finalResult;
     private String setResults;
     private int tournamentId;
@@ -58,5 +62,21 @@ public class Match {
 
     public void setPlayers(Set<User> players) {
         this.players = players;
+    }
+
+    public User getFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public void setFirstPlayer(User firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
+
+    public User getSecondPlayer() {
+        return secondPlayer;
+    }
+
+    public void setSecondPlayer(User secondPlayer) {
+        this.secondPlayer = secondPlayer;
     }
 }
