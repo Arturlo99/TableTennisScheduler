@@ -1,12 +1,10 @@
 package com.ttscore.controller;
 
 import com.ttscore.dto.TournamentDTO;
+import com.ttscore.dto.TournamentDetailsDTO;
 import com.ttscore.repository.TournamentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tournaments")
@@ -16,7 +14,12 @@ public class TournamentController {
     private TournamentRepository tournamentRepository;
 
     @GetMapping("/all")
-    Iterable<TournamentDTO> all() {
+    Iterable<TournamentDTO> findAllTournamentsForList() {
         return tournamentRepository.findAllTournamentsForList();
+    }
+
+    @GetMapping("/details/{id}")
+    TournamentDetailsDTO findTournamentDetailsById(@PathVariable Integer id) {
+        return tournamentRepository.findTournamentDetailsUsingId(id);
     }
 }

@@ -7,8 +7,7 @@
                 <td mat-cell *matCellDef="let tournament" [ngClass]="{
             'negative-name' : (tournament.date | date : 'yyyyMMdd') < (currentDate | date : 'yyyyMMdd'),
             'positive-name' : (tournament.date | date : 'yyyyMMdd') >= (currentDate | date : 'yyyyMMdd')
-             }" width="35%">
-                        <div class="link">{{tournament.name}}</div>
+             }" width="35%"><a class="link" href = "/tournaments/details/{{tournament.id}}">{{tournament.name}}</a>
                 </td>
             </ng-container>
 

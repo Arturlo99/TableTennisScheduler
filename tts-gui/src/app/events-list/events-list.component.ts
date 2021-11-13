@@ -12,10 +12,10 @@ import { TournamentService } from '../services/tournament.service';
 export class EventsListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['name', 'place', 'date', 'enrolledPlayers'];
-  tournaments: Tournament[];
-  dataSource: MatTableDataSource<Tournament>;
-  currentDate;
+  displayedColumns: string[] = ['name', 'place', 'date', 'enrolledPlayers']
+  tournaments: Tournament[]
+  dataSource: MatTableDataSource<Tournament>
+  currentDate
 
   constructor(private tournamentService: TournamentService) {
     this.currentDate = new Date()

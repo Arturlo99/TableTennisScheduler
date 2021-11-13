@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Tournament } from '../models/tournament';
 import { Observable } from 'rxjs';
+import { TournamentDetails } from '../models/tournament-details';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,18 @@ import { Observable } from 'rxjs';
 export class TournamentService {
 
   private tournamentsUrl: string;
+  private tournamentDetailsUrl: string
 
   constructor(private http: HttpClient) { 
     this.tournamentsUrl = 'http://localhost:8080/tournaments/all'
+    this.tournamentDetailsUrl = 'http://localhost:8080/tournaments/details/'
    }
 
    public findAll(): Observable<Tournament[]> {
      return this.http.get<Tournament[]>(this.tournamentsUrl);
+   }
+
+   public findTournamentDetailsUsingId(id: string): Observable<TournamentDetails> {
+     return this.http.get<TournamentDetails>(this.tournamentDetailsUrl.concat(id))
    }
 }

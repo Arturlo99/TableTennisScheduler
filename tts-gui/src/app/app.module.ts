@@ -13,13 +13,15 @@ import { EventsListComponent } from './events-list/events-list.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EventDetailsComponent } from './event-details/event-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     BackgroundComponent,
-    EventsListComponent
+    EventsListComponent,
+    EventDetailsComponent
   ],
   imports: [
     BrowserModule,
