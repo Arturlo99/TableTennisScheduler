@@ -5,4 +5,5 @@ export class Tournament {
     street: string
     date: string
     enrolledPlayers: number
+    maxPlayers: number
 }

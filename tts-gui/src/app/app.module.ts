@@ -14,6 +14,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EventDetailsComponent } from './event-details/event-details.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { EventDetailsComponent } from './event-details/event-details.component';
     NavbarComponent,
     BackgroundComponent,
     EventsListComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { EventDetailsComponent } from './event-details/event-details.component';
     HttpClientModule,
     MatCardModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
