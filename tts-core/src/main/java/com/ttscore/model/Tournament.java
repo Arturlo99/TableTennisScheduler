@@ -16,6 +16,7 @@ public class Tournament {
     private LocalDateTime date;
     private String organizer;
     private String description;
+    private Integer maxPlayers;
     @ManyToMany(mappedBy = "tournaments")
     private Set<User> users;
 
@@ -81,5 +82,13 @@ public class Tournament {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(Integer maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 }

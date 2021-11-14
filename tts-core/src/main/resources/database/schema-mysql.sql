@@ -17,6 +17,7 @@ CREATE TABLE T_TOURNAMENT
     `DATE`      datetime    NOT NULL,
     ORGANIZER   varchar(80) NOT NULL,
     DESCRIPTION varchar(255),
+    MAX_PLAYERS int(10) NOT NULL,
     PRIMARY KEY (ID)
 );
 

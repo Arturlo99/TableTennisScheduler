@@ -10,8 +10,9 @@ public class TournamentDetailsDTO {
     private Integer enrolledPlayers;
     private String city;
     private String street;
+    private Integer maxPlayers;
 
-    public TournamentDetailsDTO(String name, LocalDateTime date, String organizer, String description, Integer enrolledPlayers, String city, String street) {
+    public TournamentDetailsDTO(String name, LocalDateTime date, String organizer, String description, Integer enrolledPlayers, String city, String street, Integer maxPlayers) {
         this.name = name;
         this.date = date;
         this.organizer = organizer;
@@ -19,6 +20,7 @@ public class TournamentDetailsDTO {
         this.enrolledPlayers = enrolledPlayers;
         this.city = city;
         this.street = street;
+        this.maxPlayers = maxPlayers;
     }
 
     public String getDescription() {
@@ -75,5 +77,13 @@ public class TournamentDetailsDTO {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public Integer getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(Integer maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 }

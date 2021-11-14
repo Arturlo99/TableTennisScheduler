@@ -1,0 +1,30 @@
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-9">
+            <h1 style="color: crimson;"><b>{{tournamentDetails.name}}</b></h1>
+        </div>
+        <div class="col-3" style="text-align: right;">
+            <mat-icon style="vertical-align: middle;">person</mat-icon>
+            <span style="font-size: large;"> {{tournamentDetails.enrolledPlayers}} / {{tournamentDetails.maxPlayers}}</span>
+            <button class="btn" mat-flat-button color="primary">Enroll</button>
+            <!-- <button class="btn" mat-flat-button color="primary">Generate brackets</button> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <mat-icon style="vertical-align: bottom;">calendar_today</mat-icon>
+            <span style="font-size: large;">{{tournamentDetails.date | date :'longDate' :'pl'}} - {{tournamentDetails.date | date
+                :'shortTime' :'pl'}} </span>
+        </div>
+        <div class="col-3">
+            <mat-icon style="vertical-align: bottom;">place</mat-icon>
+            <span style="font-size: large;">{{tournamentDetails.city}}, {{tournamentDetails.street}} </span>
+        </div>
+        <div class="col-6">
+            <p style="text-align: right; font-size: large;">Organized by: <b>{{tournamentDetails.organizer}}</b></p>
+        </div>
+    </div>
+    <h1 style="padding-top: 20px;">
+        <b>Details:</b> {{tournamentDetails.description}}
+    </h1>
+</div>
