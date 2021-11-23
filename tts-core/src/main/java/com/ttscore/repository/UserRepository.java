@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT COUNT(u.email) FROM User u WHERE u.email = ?1")
     Integer countUsingEmail(String email);
+
+    User findUserByEmail(String email);
 }
