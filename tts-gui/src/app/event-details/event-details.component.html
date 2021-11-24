@@ -6,7 +6,7 @@
         <div class="col-3" style="text-align: right;">
             <mat-icon style="vertical-align: middle;">person</mat-icon>
             <span style="font-size: large;"> {{tournamentDetails.enrolledPlayers}} / {{tournamentDetails.maxPlayers}}</span>
-            <button class="btn" mat-flat-button color="primary">Enroll</button>
+            <button *ngIf="isEnrollPossible()" class="btn" mat-flat-button color="primary" (click) = "enroll()">Enroll</button>
             <!-- <button class="btn" mat-flat-button color="primary">Generate brackets</button> -->
         </div>
     </div>

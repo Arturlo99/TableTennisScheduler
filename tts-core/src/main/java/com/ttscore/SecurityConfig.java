@@ -27,8 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.authenticationProvider(daoAuth);
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 
@@ -36,9 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().and()
                 .authorizeRequests()
-                    .antMatchers("/login").permitAll()
-                    .antMatchers("/tournaments/all").permitAll()
-                    .antMatchers("/tournaments/details/*").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/users/register").permitAll()
+                .antMatchers("/tournaments/all").permitAll()
+                .antMatchers("/tournaments/details/*").permitAll()
+                .antMatchers("/create-event").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().cors().and().csrf().disable();
     }

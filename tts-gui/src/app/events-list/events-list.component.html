@@ -42,7 +42,9 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
         <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons></mat-paginator>
     </div>
+</div>
+<div *ngIf="isRoleAdmin()" class="btn">
+    <button mat-flat-button color="primary" routerLink = "/create-event">Create new tournament</button>
 </div>

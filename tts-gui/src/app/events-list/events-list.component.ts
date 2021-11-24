@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Tournament } from '../models/tournament';
+import { SessionService } from '../services/session.service';
 import { TournamentService } from '../services/tournament.service';
 
 @Component({
@@ -28,4 +29,9 @@ export class EventsListComponent implements OnInit {
       this.dataSource.paginator = this.paginator
     })
   }
+
+  isRoleAdmin() {
+    return sessionStorage.getItem('role') === "ROLE_ADMIN";
+  }
+
 }

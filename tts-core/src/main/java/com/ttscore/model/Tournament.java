@@ -20,6 +20,18 @@ public class Tournament {
     @ManyToMany(mappedBy = "tournaments")
     private Set<User> users;
 
+    public Tournament() {}
+
+    public Tournament(String name, String city, String street, LocalDateTime date, String organizer, String description, Integer maxPlayers) {
+        this.name = name;
+        this.city = city;
+        this.street = street;
+        this.date = date;
+        this.organizer = organizer;
+        this.description = description;
+        this.maxPlayers = maxPlayers;
+    }
+
     public Integer getId() {
         return id;
     }

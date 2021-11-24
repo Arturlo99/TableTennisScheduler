@@ -1,1 +1,62 @@
-<p>create-event works!</p>
+<div class="container pt-5">
+    <div class="col-md-5 mx-auto">
+        <div class="jumbotron">
+            <mat-card>
+                <form class="example-form" (submit)="createNewTournament()">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input [(ngModel)]="name" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher"
+                            placeholder="Ex. Table Tennis World Cup" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input [(ngModel)]="city" matInput placeholder="Ex. Wrocław" [formControl]="cityFormControl"
+                            [errorStateMatcher]="matcher" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Street</mat-label>
+                        <input [(ngModel)]="street" matInput placeholder="Ex. Gliwicka 23b"
+                            [formControl]="streetFormControl" [errorStateMatcher]="matcher" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill" required>
+                        <mat-label>Date</mat-label>
+                        <input [(ngModel)]="date" matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"
+                            [formControl]="dateFormControl" [errorStateMatcher]="matcher" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Hour</mat-label>
+                        <input [(ngModel)]="time" type="time" matInput placeholder="16:00"
+                            [formControl]="timeFormControl" [errorStateMatcher]="matcher" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Maximum number of players</mat-label>
+                        <mat-select [errorStateMatcher]="matcher" [formControl]="maxPlayersFormControl"
+                            [(value)]="maxPlayers" required>
+                            <mat-option value="16">16</mat-option>
+                            <mat-option value="32">32</mat-option>
+                            <mat-option value="48">48</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <input [(ngModel)]="description" matInput placeholder="Ex. Entry fee: 5$"
+                            [formControl]="descriptionFormControl" [errorStateMatcher]="matcher">
+                    </mat-form-field>
+
+                    <div style="text-align: right; padding-top: 15px;">
+                        <button [disabled]="formInvalid()" type="submit" mat-flat-button color="accent">Create</button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</div>
