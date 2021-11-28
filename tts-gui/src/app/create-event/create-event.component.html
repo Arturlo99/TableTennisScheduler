@@ -2,7 +2,7 @@
     <div class="col-md-5 mx-auto">
         <div class="jumbotron">
             <mat-card>
-                <form class="example-form" (submit)="createNewTournament()">
+                <form class="example-form">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Name</mat-label>
                         <input [(ngModel)]="name" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher"
@@ -37,12 +37,13 @@
                     </mat-form-field>
 
                     <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Maximum number of players</mat-label>
+                        <mat-label>Players limit</mat-label>
                         <mat-select [errorStateMatcher]="matcher" [formControl]="maxPlayersFormControl"
                             [(value)]="maxPlayers" required>
+                            <mat-option value="8">8</mat-option>
                             <mat-option value="16">16</mat-option>
                             <mat-option value="32">32</mat-option>
-                            <mat-option value="48">48</mat-option>
+                            <mat-option value="64">64</mat-option>
                         </mat-select>
                     </mat-form-field>
 
@@ -53,7 +54,7 @@
                     </mat-form-field>
 
                     <div style="text-align: right; padding-top: 15px;">
-                        <button [disabled]="formInvalid()" type="submit" mat-flat-button color="accent">Create</button>
+                        <button [disabled]="formInvalid()" (click)="createNewTournament()" mat-flat-button color="accent">Create</button>
                     </div>
                 </form>
             </mat-card>

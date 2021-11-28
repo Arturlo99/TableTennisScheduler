@@ -36,14 +36,14 @@ export class RegistrationComponent implements OnInit {
       role: 'user',
       creationDate: new Date()
 
-    }).subscribe(response => {
-      alert('Successfully registered!')
+    }).subscribe((response) => {
+      alert('Successfully registered!');
       this.router.navigate(['']);
     }, (error) => {
       if (error.status == 406) {
-        alert('The email is already used.')
+        alert('The email is already used.');
       } else {
-        alert('Something went wrong.')
+        alert('Something went wrong.');
       }
     })
   }

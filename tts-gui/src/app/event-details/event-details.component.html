@@ -1,30 +1,36 @@
 <div class="container pt-5">
     <div class="row">
         <div class="col-9">
-            <h3 style="color: crimson;"><b>{{tournamentDetails.name}}</b></h3>
+            <h3 style="color: crimson;"><b>{{tournamentDetails?.name}}</b></h3>
         </div>
         <div class="col-3" style="text-align: right;">
             <mat-icon style="vertical-align: middle;">person</mat-icon>
-            <span style="font-size: large;"> {{tournamentDetails.enrolledPlayers}} / {{tournamentDetails.maxPlayers}}</span>
-            <button *ngIf="isEnrollPossible()" class="btn" mat-flat-button color="primary" (click) = "enroll()">Enroll</button>
-            <!-- <button class="btn" mat-flat-button color="primary">Generate brackets</button> -->
+            <span style="font-size: large;"> {{tournamentDetails?.enrolledPlayers}} / {{tournamentDetails?.maxPlayers}}</span>
+            <button [disabled]="!isUserLoggedIn()" class="btn" mat-flat-button color="primary" (click) = "enroll()">
+                <span *ngIf="this.tournamentDetails?.userEnrolled">
+                    Sign Off
+                </span>
+                <span *ngIf="!this.tournamentDetails?.userEnrolled">
+                    Enroll
+                </span>
+            </button>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-top:20px;">
         <div class="col-3">
             <mat-icon style="vertical-align: bottom;">calendar_today</mat-icon>
-            <span style="font-size: large;"> {{tournamentDetails.date | date :'longDate' :'pl'}} - {{tournamentDetails.date | date
+            <span style="font-size: large;"> {{tournamentDetails?.date | date :'longDate' :'pl'}} - {{tournamentDetails?.date | date
                 :'shortTime' :'pl'}} </span>
         </div>
         <div class="col-3">
             <mat-icon style="vertical-align: bottom;">place</mat-icon>
-            <span style="font-size: large;">{{tournamentDetails.city}}, {{tournamentDetails.street}} </span>
+            <span style="font-size: large;">{{tournamentDetails?.city}}, {{tournamentDetails?.street}} </span>
         </div>
         <div class="col-6">
-            <p style="text-align: right; font-size: large;">Organized by: <b>{{tournamentDetails.organizer}}</b></p>
+            <p style="text-align: right; font-size: large;">Organized by: <b>{{tournamentDetails?.organizer}}</b></p>
         </div>
     </div>
     <h4 style="padding-top: 20px;">
-        <b>Details:</b> {{tournamentDetails.description}}
+        <b>Details:</b> {{tournamentDetails?.description}}
     </h4>
 </div>

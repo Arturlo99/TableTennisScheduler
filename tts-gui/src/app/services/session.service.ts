@@ -9,4 +9,8 @@ export class SessionService {
   constructor() {
     this.loggedIn = false;
   }
+
+  getEmailFromSession() {
+    return atob(sessionStorage.getItem('token')).split(':')[0];
+  }
 }

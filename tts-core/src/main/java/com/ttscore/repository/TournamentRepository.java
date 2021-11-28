@@ -16,4 +16,6 @@ public interface TournamentRepository extends JpaRepository<Tournament, Integer>
     @Query("SELECT new com.ttscore.dto.TournamentDetailsDTO(t.name, t.date, t.organizer, t.description," +
             " size(t.users), t.city, t.street, t.maxPlayers) FROM Tournament t WHERE t.id = ?1")
     TournamentDetailsDTO findTournamentDetailsUsingId(Integer id);
+
+    Tournament findTournamentById(Integer id);
 }

@@ -7,4 +7,5 @@ export class TournamentDetails {
     city: string
     street: string
     maxPlayers: number
+    userEnrolled: boolean
 }

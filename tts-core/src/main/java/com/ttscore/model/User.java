@@ -90,11 +90,13 @@ public class User {
         this.creationDate = creationDate;
     }
 
-    public Set<Tournament> getEvents() {
+    public Set<Tournament> getTournaments() {
         return tournaments;
     }
 
-    public void setEvents(Set<Tournament> tournaments) {
+    public void setTournaments(Set<Tournament> tournaments) {
         this.tournaments = tournaments;
     }
+
+
 }

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-create-event',
@@ -29,7 +30,7 @@ export class CreateEventComponent implements OnInit {
   maxPlayers: number
   description: string
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private session: SessionService,private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -48,12 +49,12 @@ export class CreateEventComponent implements OnInit {
       date: this.toLocalDateTime(this.date, this.time),
       maxPlayers: this.maxPlayers,
       description: this.description,
-      organizerEmail: this.getEmailFromSession() 
-    }).subscribe(response => {
-      alert('Successfully created new tournament!')
+      organizerEmail: this.session.getEmailFromSession() 
+    }).subscribe((response) => {
+      alert('Successfully created new tournament!');
       this.router.navigate(['']);
     }, (error) => {
-      alert('Something went wrong.')
+      alert('Something went wrong.');
     })
   }
 
@@ -65,9 +66,6 @@ export class CreateEventComponent implements OnInit {
     return formatDate(date, 'yyyy-MM-dd', 'en').concat('T'+ hour.concat(':00'))
   }
 
-  getEmailFromSession() {
-    return atob(sessionStorage.getItem('token')).split(':')[0];
-  }
 }
 
 /** Error when invalid control is dirty, touched, or submitted. */
