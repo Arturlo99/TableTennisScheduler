@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+html { height: 100%;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  height: 100%; }
+.bg {
+  background-image: url("./assets/img/home-page-background.jpg");
+    height: 100%;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+.mat-toolbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
