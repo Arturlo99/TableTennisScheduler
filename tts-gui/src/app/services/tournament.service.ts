@@ -11,12 +11,14 @@ export class TournamentService {
 
   private tournamentsUrl: string
   private tournamentDetailsUrl: string
-  private tournamentEnroll: string
+  private tournamentEnrollUrl: string
+  private tournamentDeleteUrl: string
 
   constructor(private http: HttpClient) {
     this.tournamentsUrl = 'http://localhost:8080/tournaments/all'
     this.tournamentDetailsUrl = 'http://localhost:8080/tournaments/details/'
-    this.tournamentEnroll = 'http://localhost:8080/tournaments/enroll'
+    this.tournamentEnrollUrl = 'http://localhost:8080/tournaments/enroll'
+    this.tournamentDeleteUrl = 'http://localhost:8080/delete-event/'
   }
 
   public findAll(): Observable<Tournament[]> {
@@ -32,10 +34,13 @@ export class TournamentService {
   }
 
   public enrollForTournament(userEmail: string, tournamentId: string) {
-    return this.http.post<any>(this.tournamentEnroll, {
+    return this.http.post<any>(this.tournamentEnrollUrl, {
       userEmail: userEmail,
       tournamentId: tournamentId
     });
   }
 
+  public deleteTournament(tournamentId: number) {
+    return this.http.delete<any>(this.tournamentDeleteUrl.concat(tournamentId.toString()));
+  }
 }

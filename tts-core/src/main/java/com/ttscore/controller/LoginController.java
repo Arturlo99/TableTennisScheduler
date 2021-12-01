@@ -5,8 +5,6 @@ import com.ttscore.model.User;
 import com.ttscore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +16,7 @@ public class LoginController {
     UserRepository userRepository;
 
     @PostMapping("/login")
-    public Map<String, String> user(@RequestBody CredentialsDTO credentials) {
+    public Map<String, String> login(@RequestBody CredentialsDTO credentials) {
         Map<String, String> response = new HashMap<>();
         User user = userRepository.findUserByEmail(credentials.getEmail());
         if (user != null) {

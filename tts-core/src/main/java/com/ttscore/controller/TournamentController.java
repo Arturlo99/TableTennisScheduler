@@ -83,4 +83,15 @@ public class TournamentController {
         }
         return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
     }
+
+    @DeleteMapping("/delete-event/{id}")
+    ResponseEntity<?> deleteTournament( @PathVariable Integer id) {
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        } else {
+
+            tournamentRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
 }

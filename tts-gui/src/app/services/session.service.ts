@@ -7,7 +7,12 @@ export class SessionService {
   public loggedIn: boolean;
 
   constructor() {
-    this.loggedIn = false;
+    if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != '') {
+      this.loggedIn = true;
+    } else {
+      sessionStorage.setItem('token', '');
+      this.loggedIn = false;
+    }
   }
 
   getEmailFromSession() {

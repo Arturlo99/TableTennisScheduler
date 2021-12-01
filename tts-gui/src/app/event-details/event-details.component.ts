@@ -11,9 +11,10 @@ import { SessionService } from '../services/session.service';
 })
 export class EventDetailsComponent implements OnInit {
   dbUrl = 'https://raw.githubusercontent.com/Drarig29/brackets-viewer.js/master/demo/db.json';
-  tournamentDetails: TournamentDetails
+  tournamentDetails?: TournamentDetails
   tournamentId: string
   currentDate
+  isClosed: boolean
 
 
   constructor(private session: SessionService, private tournamentService: TournamentService, private route: ActivatedRoute, private router: Router) {
@@ -47,8 +48,8 @@ export class EventDetailsComponent implements OnInit {
     }
   }
 
-  isUserLoggedIn(){
-    return this.session.loggedIn;
+  shouldDisableEnrollButton(){
+    return !this.session.loggedIn || this.currentDate > this.tournamentDetails.date;
   }
 }
 

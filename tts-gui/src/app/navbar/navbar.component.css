@@ -4,6 +4,6 @@
 .button-container {
     display: flex;
     justify-content: center;
-    width: 120px;
+    width: 140px;
     font-size: large;
 }

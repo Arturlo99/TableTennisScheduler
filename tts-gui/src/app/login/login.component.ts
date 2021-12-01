@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import crypto from 'crypto-js';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { SessionService } from '../services/session.service';
 
 @Component({
@@ -13,7 +12,6 @@ import { SessionService } from '../services/session.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup
-
 
   constructor(private session: SessionService, private http: HttpClient, private router: Router, private formBuilder: FormBuilder) { }
 

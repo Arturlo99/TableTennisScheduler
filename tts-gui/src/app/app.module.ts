@@ -23,6 +23,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogOverviewExampleComponent } from './events-list/events-list.component';
+import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -54,7 +57,8 @@ export class XhrInterceptor implements HttpInterceptor {
     EventDetailsComponent,
     RegistrationComponent,
     LoginComponent,
-    CreateEventComponent
+    CreateEventComponent,
+    DialogOverviewExampleComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,8 @@ export class XhrInterceptor implements HttpInterceptor {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]

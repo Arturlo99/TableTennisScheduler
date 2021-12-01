@@ -6,7 +6,7 @@
         <div class="col-3" style="text-align: right;">
             <mat-icon style="vertical-align: middle;">person</mat-icon>
             <span style="font-size: large;"> {{tournamentDetails?.enrolledPlayers}} / {{tournamentDetails?.maxPlayers}}</span>
-            <button [disabled]="!isUserLoggedIn()" class="btn" mat-flat-button color="primary" (click) = "enroll()">
+            <button [disabled]="this.shouldDisableEnrollButton" class="btn" mat-flat-button color="primary" (click) = "enroll()">
                 <span *ngIf="this.tournamentDetails?.userEnrolled">
                     Sign Off
                 </span>
