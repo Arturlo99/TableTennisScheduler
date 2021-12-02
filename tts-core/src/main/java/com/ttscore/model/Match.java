@@ -14,8 +14,9 @@ public class Match {
     @ManyToOne
     private User secondPlayer;
     private String finalResult;
-    private String setResults;
-    private int tournamentId;
+    @ManyToOne
+    @JoinColumn(name = "tournament_id")
+    private Tournament tournament;
     @ManyToMany
     @JoinTable(
             name = "t_match_user",
@@ -40,20 +41,12 @@ public class Match {
         this.finalResult = finalResult;
     }
 
-    public String getSetResults() {
-        return setResults;
+    public Tournament getTournament() {
+        return tournament;
     }
 
-    public void setSetResults(String setResults) {
-        this.setResults = setResults;
-    }
-
-    public int getTournamentId() {
-        return tournamentId;
-    }
-
-    public void setTournamentId(int eventId) {
-        this.tournamentId = eventId;
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
     }
 
     public Set<User> getPlayers() {

@@ -46,6 +46,7 @@ export class EventsListComponent implements OnInit {
       this.tournaments.forEach((tournament, id) => {
         if(tournament.id === tournamentId) this.tournaments.splice(id,1);
       });
+      
       this.dataSource = new MatTableDataSource(this.tournaments);
     });
   }

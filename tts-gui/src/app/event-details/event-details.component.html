@@ -5,8 +5,10 @@
         </div>
         <div class="col-3" style="text-align: right;">
             <mat-icon style="vertical-align: middle;">person</mat-icon>
-            <span style="font-size: large;"> {{tournamentDetails?.enrolledPlayers}} / {{tournamentDetails?.maxPlayers}}</span>
-            <button [disabled]="this.shouldDisableEnrollButton" class="btn" mat-flat-button color="primary" (click) = "enroll()">
+            <span style="font-size: large;"> {{tournamentDetails?.enrolledPlayers}} /
+                {{tournamentDetails?.maxPlayers}}</span>
+            <button [disabled]="this.shouldDisableEnrollButton" class="btn" mat-flat-button color="primary"
+                (click)="enroll()">
                 <span *ngIf="this.tournamentDetails?.userEnrolled">
                     Sign Off
                 </span>
@@ -19,7 +21,8 @@
     <div class="row" style="margin-top:20px;">
         <div class="col-3">
             <mat-icon style="vertical-align: bottom;">calendar_today</mat-icon>
-            <span style="font-size: large;"> {{tournamentDetails?.date | date :'longDate' :'pl'}} - {{tournamentDetails?.date | date
+            <span style="font-size: large;"> {{tournamentDetails?.date | date :'longDate' :'pl'}} -
+                {{tournamentDetails?.date | date
                 :'shortTime' :'pl'}} </span>
         </div>
         <div class="col-3">
@@ -27,10 +30,37 @@
             <span style="font-size: large;">{{tournamentDetails?.city}}, {{tournamentDetails?.street}} </span>
         </div>
         <div class="col-6">
-            <p style="text-align: right; font-size: large;">Organized by: <b>{{tournamentDetails?.organizer}}</b></p>
+            <p style="text-align: right; font-size: large;">Organized by: <b>{{tournamentDetails?.organizerName}} {{tournamentDetails?.organizerLastName}}</b></p>
         </div>
     </div>
     <h4 style="padding-top: 20px;">
         <b>Details:</b> {{tournamentDetails?.description}}
     </h4>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container  matColumnDef="position">
+            <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+            <mat-cell *matCellDef="let userTableData"> {{userTableData.position}}</mat-cell>
+        </ng-container>
+
+        <ng-container  matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Player</mat-header-cell>
+            <mat-cell *matCellDef="let userTableData"> {{userTableData.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container *ngFor="let disCol of displayedColumns.slice(2); let colIndex = index" matColumnDef="{{disCol}}">
+            <mat-header-cell *matHeaderCellDef>{{disCol}}</mat-header-cell>
+            <mat-cell  *matCellDef="let userTableData">
+                <span *ngIf=" userTableData.position > colIndex">
+                    {{userTableData.matches[colIndex].finalResult}}
+                    <button (click)="openEditMatchResultsPopup(userTableData.matches[colIndex])" mat-icon-button color="primary">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </span> </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
 </div>

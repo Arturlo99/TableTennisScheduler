@@ -1,22 +1,33 @@
 package com.ttscore.dto;
 
+import com.ttscore.model.Match;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class TournamentDetailsDTO {
     private String name;
     private LocalDateTime date;
-    private String organizer;
+    private Integer organizerId;
+    private String organizerName;
+    private String organizerLastName;
     private String description;
     private Integer enrolledPlayers;
     private String city;
     private String street;
     private Integer maxPlayers;
     private Boolean userEnrolled;
+    private List<UserForTournamentDTO> users;
+    private List<Match> matches;
 
-    public TournamentDetailsDTO(String name, LocalDateTime date, String organizer, String description, Integer enrolledPlayers, String city, String street, Integer maxPlayers) {
+    public TournamentDetailsDTO(String name, LocalDateTime date, Integer organizerId, String organizerName,
+                                String organizerLastName, String description, Integer enrolledPlayers, String city,
+                                String street, Integer maxPlayers) {
         this.name = name;
         this.date = date;
-        this.organizer = organizer;
+        this.organizerId = organizerId;
+        this.organizerName = organizerName;
+        this.organizerLastName = organizerLastName;
         this.description = description;
         this.enrolledPlayers = enrolledPlayers;
         this.city = city;
@@ -24,16 +35,23 @@ public class TournamentDetailsDTO {
         this.maxPlayers = maxPlayers;
     }
 
-    public TournamentDetailsDTO(String name, LocalDateTime date, String organizer, String description, Integer enrolledPlayers, String city, String street, Integer maxPlayers, Boolean userEnrolled) {
+    public TournamentDetailsDTO(String name, LocalDateTime date, Integer organizerId, String organizerName,
+                                String organizerLastName, String description, Integer enrolledPlayers,
+                                String city, String street, Integer maxPlayers, Boolean userEnrolled,
+                                List<UserForTournamentDTO> users, List<Match> matches) {
         this.name = name;
         this.date = date;
-        this.organizer = organizer;
+        this.organizerId = organizerId;
+        this.organizerName = organizerName;
+        this.organizerLastName = organizerLastName;
         this.description = description;
         this.enrolledPlayers = enrolledPlayers;
         this.city = city;
         this.street = street;
         this.maxPlayers = maxPlayers;
         this.userEnrolled = userEnrolled;
+        this.users = users;
+        this.matches = matches;
     }
 
     public String getDescription() {
@@ -44,12 +62,12 @@ public class TournamentDetailsDTO {
         this.description = description;
     }
 
-    public String getOrganizer() {
-        return organizer;
+    public String getOrganizerName() {
+        return organizerName;
     }
 
-    public void setOrganizer(String organizer) {
-        this.organizer = organizer;
+    public void setOrganizerName(String organizerName) {
+        this.organizerName = organizerName;
     }
 
     public String getName() {
@@ -106,5 +124,37 @@ public class TournamentDetailsDTO {
 
     public void setUserEnrolled(Boolean userEnrolled) {
         this.userEnrolled = userEnrolled;
+    }
+
+    public List<UserForTournamentDTO> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserForTournamentDTO> users) {
+        this.users = users;
+    }
+
+    public Integer getOrganizerId() {
+        return organizerId;
+    }
+
+    public void setOrganizerId(Integer organizerId) {
+        this.organizerId = organizerId;
+    }
+
+    public String getOrganizerLastName() {
+        return organizerLastName;
+    }
+
+    public void setOrganizerLastName(String organizerLastName) {
+        this.organizerLastName = organizerLastName;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
 }

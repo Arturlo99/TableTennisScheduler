@@ -1,0 +1,17 @@
+<p>Edit match results</p>
+<!-- <mat-form-field appearance="fill">
+    <mat-label>Enter match result</mat-label>
+    <input matInput [(ngModel)]="data.match.finalResult">
+  </mat-form-field> -->
+
+<mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>Match result</mat-label>
+        <input matInput maxlength="3" pattern="[0-9]:[0-9]" placeholder="Ex. 3:2" type="text" [(ngModel)]="finalResult" />
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-flat-button color="accent" [mat-dialog-close]="finalResult">Save</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="false">Cancel</button>
+</mat-dialog-actions>

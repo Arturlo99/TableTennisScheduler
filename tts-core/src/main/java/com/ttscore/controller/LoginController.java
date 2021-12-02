@@ -22,7 +22,7 @@ public class LoginController {
         if (user != null) {
             if (user.getPassword().equals(credentials.getPassword())) {
                 response.put("loggedIn", "true");
-                response.put("role", user.getRole());
+                response.put("role", user.getRole().getName());
             } else {
                 response.put("loggedIn", "false");
             }

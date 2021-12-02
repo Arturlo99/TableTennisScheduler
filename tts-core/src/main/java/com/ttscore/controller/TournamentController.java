@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(originPatterns = "http://localhost:4200")
@@ -28,17 +30,20 @@ public class TournamentController {
 
     @GetMapping("/tournaments/details/{id}")
     TournamentDetailsDTO findTournamentDetailsById(@PathVariable Integer id) {
-        return tournamentRepository.findTournamentDetailsUsingId(id);
+        Tournament t = tournamentRepository.findTournamentById(id);
+        return new TournamentDetailsDTO(t.getName(), t.getDate(), t.getOrganizer().getId(), t.getOrganizer().getName(),
+                t.getOrganizer().getLastName(), t.getDescription(), t.getUsers().size(), t.getCity(), t.getStreet(),
+                t.getMaxPlayers(), false, this.fetchUsersForTournament(t.getUsers()), t.getMatches());
     }
 
     @PostMapping("/tournaments/details/{id}")
-    TournamentDetailsDTO findTournamentDetailsById(@PathVariable Integer id, @RequestBody String email) {
+    TournamentDetailsDTO findTournamentDetailsByIdAndEmail(@PathVariable Integer id, @RequestBody String email) {
         Tournament t = tournamentRepository.findTournamentById(id);
         User u = userRepository.findUserByEmail(email);
         Boolean userEnrolled = t.getUsers().contains(u);
-
-        return new TournamentDetailsDTO(t.getName(), t.getDate(), t.getOrganizer(), t.getDescription(),
-                t.getUsers().size(), t.getCity(), t.getCity(), t.getMaxPlayers(), userEnrolled);
+        return new TournamentDetailsDTO(t.getName(), t.getDate(), t.getOrganizer().getId(), t.getOrganizer().getName(),
+                t.getOrganizer().getLastName(), t.getDescription(), t.getUsers().size(), t.getCity(), t.getStreet(),
+                t.getMaxPlayers(), userEnrolled, this.fetchUsersForTournament(t.getUsers()), t.getMatches());
     }
 
     /*
@@ -78,7 +83,7 @@ public class TournamentController {
         User organizer = userRepository.findUserByEmail(t.getOrganizerEmail());
         if (organizer != null) {
             tournamentRepository.save(new Tournament(t.getName(), t.getCity(), t.getStreet(), t.getDate(),
-                    organizer.getName() + ' ' + organizer.getLastName(), t.getDescription(), t.getMaxPlayers()));
+                    organizer, t.getDescription(), t.getMaxPlayers()));
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
@@ -89,9 +94,13 @@ public class TournamentController {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
         } else {
-
             tournamentRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    private List<UserForTournamentDTO> fetchUsersForTournament (List<User> users) {
+        return  users.stream().map(o -> new UserForTournamentDTO
+                (o.getId(), o.getName(), o.getLastName())).collect(Collectors.toList());
     }
 }

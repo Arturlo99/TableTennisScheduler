@@ -15,9 +15,8 @@ public class User {
     private String password;
     private String name;
     private String lastName;
-    private Float rating;
-    private String role;
-    private LocalDateTime creationDate;
+    @OneToOne
+    private Role role;
     @ManyToMany
     @JoinTable(
             name = "t_user_tournament",
@@ -66,28 +65,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Float getRating() {
-        return rating;
-    }
-
-    public void setRating(Float rating) {
-        this.rating = rating;
-    }
-
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
     }
 
     public Set<Tournament> getTournaments() {
