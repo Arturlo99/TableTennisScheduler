@@ -9,16 +9,3 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
         return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
     }
 }
-
-/** @title Input with a custom ErrorStateMatcher */
-@Component({
-    selector: 'input-error-state-matcher-example',
-    templateUrl: './input-error-state-matcher-example.html',
-    styleUrls: ['./input-error-state-matcher-example.css'],
-})
-export class InputErrorStateMatcherExample {
-    nameFormControl = new FormControl('', [Validators.required]);
-    // another validators
-
-    matcher = new MyErrorStateMatcher();
-}
