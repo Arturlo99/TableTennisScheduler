@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         DaoAuthenticationProvider daoAuth = new DaoAuthenticationProvider();
         daoAuth.setUserDetailsService(userDetailsServiceImpl);
         daoAuth.setPasswordEncoder(passwordEncoder());
@@ -38,12 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().and()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/users/register").permitAll()
+                .antMatchers("/register").permitAll()
                 .antMatchers("/tournaments/all").permitAll()
                 .antMatchers("/tournaments/details/*").permitAll()
+                .antMatchers("/tournaments/enroll").permitAll()
                 .antMatchers("/create-event").hasRole("ADMIN")
-                .antMatchers("/delete-event").hasRole("ADMIN")
-                .antMatchers("/update-tournament-matches").hasRole("ADMIN")
+                .antMatchers("/delete-event/*").hasRole("ADMIN")
+                .antMatchers("/generate-tournament-matches").hasRole("ADMIN")
+                .antMatchers("/update-match").hasRole("ADMIN")
+                .antMatchers("/get-tournament*-matches").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().cors().and().csrf().disable();
     }

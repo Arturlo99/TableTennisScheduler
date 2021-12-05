@@ -5,6 +5,7 @@ import { Tournament } from '../models/tournament';
 import { TournamentService } from '../services/tournament.service';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-events-list',
@@ -19,7 +20,7 @@ export class EventsListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private tournamentService: TournamentService, public dialog: MatDialog) {
+  constructor(private tournamentService: TournamentService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.tournamentService.findAll().subscribe(data => {
       data.sort((a, b) => (a.date > b.date ? -1 : 1));
       this.tournaments = data
@@ -44,8 +45,18 @@ export class EventsListComponent implements OnInit {
       this.tournaments.forEach((tournament, id) => {
         if (tournament.id === tournamentId) this.tournaments.splice(id, 1);
       });
-
       this.dataSource = new MatTableDataSource(this.tournaments);
+      this.dataSource.paginator = this.paginator
+      this.dataSource.sort = this.sort;
+      this.snackBar.open('Selected tournament has been deleted.', 'Ok', {
+        duration: 2000,
+      });
+    }, (error) => {
+      if (error.status == 403) {
+        this.snackBar.open('Operation is not possible because there are enrolled players', 'Ok', {
+          duration: 2000,
+        });
+      }
     });
   }
 
@@ -54,7 +65,7 @@ export class EventsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.deleteTournament(tournamentId);
+        this.deleteTournament(tournamentId)
       }
     });
   }

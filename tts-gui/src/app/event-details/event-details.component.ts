@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TournamentDetails } from '../models/tournament-details';
 import { TournamentService } from '../services/tournament.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SessionService } from '../services/session.service';
 import { UserForTournament } from '../models/user-for-tournament';
 import { MatTableDataSource } from '@angular/material/table';
@@ -142,7 +142,6 @@ export class EventDetailsComponent implements OnInit {
     }
     this.dataSource = new MatTableDataSource(this.usersTableData);
   }
-
 
   isRoleAdmin() {
     return this.session.getUserRole() === 'ROLE_ADMIN'

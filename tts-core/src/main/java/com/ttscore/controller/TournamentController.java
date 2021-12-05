@@ -42,7 +42,6 @@ public class TournamentController {
         Returns true if user is assigned to the specific tournament otherwise false
      */
     @PostMapping("/tournaments/enroll")
-    @ResponseBody
     ResponseEntity<TournamentEnrollmentResponseDTO> enrollForTournament(@RequestBody TournamentEnrollmentDTO enrollment) {
         User user = userRepository.findUserByEmail(enrollment.getUserEmail());
         if (user != null) {
@@ -70,7 +69,6 @@ public class TournamentController {
     }
 
     @PostMapping("/create-event")
-    @ResponseBody
     ResponseEntity<?> createNewTournament(@RequestBody NewTournamentDTO t) {
         User organizer = userRepository.findUserByEmail(t.getOrganizerEmail());
         if (organizer != null) {
@@ -86,13 +84,19 @@ public class TournamentController {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
         } else {
+            Tournament t = tournamentRepository.findTournamentById(id);
+            if (t != null) {
+                if (t.getUsers().size() > 0) {
+                    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                }
+            }
             tournamentRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
     @GetMapping("/get-tournament{id}-matches")
-    List<MatchDTO> getTournamentMatches(@PathVariable Integer id){
+    List<MatchDTO> getTournamentMatches(@PathVariable Integer id) {
         return this.fetchTournamentMatches(tournamentRepository.findTournamentById(id).getMatches());
     }
 

@@ -29,7 +29,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   public createNewUser(): void {
-    this.httpClient.post<any>('http://localhost:8080/users/register', {
+    this.httpClient.post<any>('http://localhost:8080/register', {
       email: this.registerForm.value.email,
       password: this.encodeUsingSha256(this.registerForm.value.password.toString()),
       name: this.registerForm.value.name,

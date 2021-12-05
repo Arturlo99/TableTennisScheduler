@@ -1,7 +1,9 @@
 <div class="container">
+    <div *ngIf="isRoleAdmin()" class="btn">
+        <button mat-flat-button color="primary" routerLink="/create-event">Create new tournament</button>
+    </div>
     <div style="position:relative; top:15px;">
         <table mat-table [dataSource]="dataSource" class="table-striped" matSort>
-
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Tournament</th>
                 <td mat-cell *matCellDef="let tournament" [ngClass]="{
@@ -56,7 +58,4 @@
         </table>
         <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons></mat-paginator>
     </div>
-</div>
-<div *ngIf="isRoleAdmin()" class="btn">
-    <button mat-flat-button color="primary" routerLink="/create-event">Create new tournament</button>
 </div>

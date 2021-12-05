@@ -3,27 +3,27 @@ table {
 }
 
 .mat-header-cell {
-text-align:justify;
-font-size: medium;
+  text-align:justify;
+  font-size: medium;
 }
 
 .positive-name {
-color: black;
-font-size: 18px;
-font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: black;
+  font-size: 18px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .positive {
-font-size: medium;
-color: black;
-font-size: 16px;
-font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: medium;
+  color: black;
+  font-size: 16px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .negative {
-color: black;
-font-style: italic;
-background-color: rgb(221, 221, 221);
+  color: black;
+  font-style: italic;
+  background-color: rgb(221, 221, 221);
 }
 
 .negative-name {
@@ -32,14 +32,12 @@ background-color: rgb(221, 221, 221);
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-style: italic;
   background-color: rgb(221, 221, 221);
-  }
+}
 
 .link{
-color: rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
 }
 
 .btn {
-  width:50%;
-  margin-left:25%;
-  margin-right:25%;
+  margin-top: 15px;
 }
