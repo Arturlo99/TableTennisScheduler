@@ -51,16 +51,16 @@
 
         <ng-container *ngFor="let disCol of displayedColumns.slice(2); let colIndex = index" matColumnDef="{{disCol}}">
             <mat-header-cell *matHeaderCellDef>{{disCol}}</mat-header-cell>
-            <mat-cell  *matCellDef="let userTableData">
+            <mat-cell [ngClass]="{'diagonal': userTableData.position === colIndex}" *matCellDef="let userTableData">
                 <span *ngIf=" userTableData.position > colIndex && userTableData.matches.length > 0">
                     {{userTableData?.matches[colIndex].finalResult}}
                     <button *ngIf="isRoleAdmin()" (click)="openEditMatchResultsPopup(userTableData.matches[colIndex])" mat-icon-button color="primary">
                         <mat-icon>edit</mat-icon>
                     </button>
                 </span>
-                <!-- <span *ngIf=" userTableData.position < colIndex && userTableData.matches.length > 0">
-                    {{userTableData?.matches[colIndex].finalResult}}
-                </span> -->
+                <span *ngIf=" userTableData.position < colIndex && userTableData.matches.length > 0">
+                    {{userTableData?.matches[colIndex-1].finalResult.split('').reverse().join('')}}
+                </span>
             </mat-cell>
         </ng-container>
 

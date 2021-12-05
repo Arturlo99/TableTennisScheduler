@@ -37,3 +37,6 @@ mat-header-cell, mat-cell {
     margin-left:25%;
     margin-right:25%;
 }
+.diagonal {
+    background-color: rgb(78, 77, 77);
+}

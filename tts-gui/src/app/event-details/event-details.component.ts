@@ -51,7 +51,7 @@ export class EventDetailsComponent implements OnInit {
           this.wereMatchesGenerated = true
         }
         this.tournamentDetails = response;
-        this.checkIfEnrollButtonShouldBeEnabled()
+        this.checkIfEnrollButtonShouldBeDisabled()
         this.prepareUsersDataToDisplay(response.users)
       })
   }
@@ -76,8 +76,8 @@ export class EventDetailsComponent implements OnInit {
     }
   }
 
-  checkIfEnrollButtonShouldBeEnabled() {
-    if (this.session.loggedIn || this.currentDate < this.tournamentDetails.date.split('T')[0]) {
+  checkIfEnrollButtonShouldBeDisabled() {
+    if ((this.session.loggedIn || this.currentDate < this.tournamentDetails.date.split('T')[0]) && !this.wereMatchesGenerated) {
       this.shouldDisableEnrollButton = false;
     }
   }
@@ -86,7 +86,7 @@ export class EventDetailsComponent implements OnInit {
     for (let i in users) {
       this.displayedColumns.push(i);
       this.usersTableData.push({
-        position: +i, name: users[i].name.charAt(0).concat('. ' + users[i].lastName), matches: this.tournamentDetails.matches.filter(match => match.firstPlayerId === users[i].id)
+        position: +i, name: users[i].name.charAt(0).concat('. ' + users[i].lastName), matches: this.tournamentDetails.matches.filter(match => match.firstPlayerId === users[i].id || match.secondPlayerId === users[i].id)
       })
     }
     this.dataSource = new MatTableDataSource(this.usersTableData);
