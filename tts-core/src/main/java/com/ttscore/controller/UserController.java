@@ -1,6 +1,7 @@
 package com.ttscore.controller;
 
 import com.ttscore.model.User;
+import com.ttscore.repository.RoleRepository;
 import com.ttscore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,15 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @PostMapping("/register")
     ResponseEntity<?> createNewUser(@RequestBody User user) {
         if(userRepository.countUsingEmail(user.getEmail())>0){
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
+        user.setRole(roleRepository.getById(2));
         userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }

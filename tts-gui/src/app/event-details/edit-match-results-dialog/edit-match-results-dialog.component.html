@@ -1,17 +1,17 @@
-<p>Edit match results</p>
-<!-- <mat-form-field appearance="fill">
-    <mat-label>Enter match result</mat-label>
-    <input matInput [(ngModel)]="data.match.finalResult">
-  </mat-form-field> -->
+<form [formGroup]="resultsForm">
+    <p>Edit match results</p>
 
-<mat-dialog-content>
-    <mat-form-field appearance="fill">
-        <mat-label>Match result</mat-label>
-        <input matInput maxlength="3" pattern="[0-9]:[0-9]" placeholder="Ex. 3:2" type="text" [(ngModel)]="finalResult" />
-    </mat-form-field>
-</mat-dialog-content>
+    <mat-dialog-content>
+        <mat-form-field appearance="fill">
+            <mat-label>Match result</mat-label>
+            <input matInput formControlName="result" maxlength="3" placeholder="Ex. 3:2" type="text" />
+        </mat-form-field>
+    </mat-dialog-content>
 
-<mat-dialog-actions align="center">
-    <button mat-flat-button color="accent" [mat-dialog-close]="finalResult">Save</button>
-    <button mat-flat-button color="primary" [mat-dialog-close]="false">Cancel</button>
-</mat-dialog-actions>
+    <mat-dialog-actions align="center">
+        <button [disabled]="this.resultsForm.invalid" mat-flat-button color="accent" [mat-dialog-close]="{
+            saved: true,
+            result: this.resultsForm.value.result}">Save</button>
+        <button mat-flat-button color="primary" [mat-dialog-close]="{saved: false}">Cancel</button>
+    </mat-dialog-actions>
+</form>

@@ -1,6 +1,7 @@
 package com.ttscore.controller;
 
 import com.ttscore.dto.*;
+import com.ttscore.model.Match;
 import com.ttscore.model.Tournament;
 import com.ttscore.model.User;
 import com.ttscore.repository.TournamentRepository;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,14 +28,6 @@ public class TournamentController {
         return tournamentRepository.findAllTournamentsForList();
     }
 
-    @GetMapping("/tournaments/details/{id}")
-    TournamentDetailsDTO findTournamentDetailsById(@PathVariable Integer id) {
-        Tournament t = tournamentRepository.findTournamentById(id);
-        return new TournamentDetailsDTO(t.getName(), t.getDate(), t.getOrganizer().getId(), t.getOrganizer().getName(),
-                t.getOrganizer().getLastName(), t.getDescription(), t.getUsers().size(), t.getCity(), t.getStreet(),
-                t.getMaxPlayers(), false, this.fetchUsersForTournament(t.getUsers()), t.getMatches());
-    }
-
     @PostMapping("/tournaments/details/{id}")
     TournamentDetailsDTO findTournamentDetailsByIdAndEmail(@PathVariable Integer id, @RequestBody String email) {
         Tournament t = tournamentRepository.findTournamentById(id);
@@ -43,7 +35,7 @@ public class TournamentController {
         Boolean userEnrolled = t.getUsers().contains(u);
         return new TournamentDetailsDTO(t.getName(), t.getDate(), t.getOrganizer().getId(), t.getOrganizer().getName(),
                 t.getOrganizer().getLastName(), t.getDescription(), t.getUsers().size(), t.getCity(), t.getStreet(),
-                t.getMaxPlayers(), userEnrolled, this.fetchUsersForTournament(t.getUsers()), t.getMatches());
+                t.getMaxPlayers(), userEnrolled, this.fetchUsersForTournament(t.getUsers()), fetchTournamentMatches(t.getMatches()));
     }
 
     /*
@@ -90,7 +82,7 @@ public class TournamentController {
     }
 
     @DeleteMapping("/delete-event/{id}")
-    ResponseEntity<?> deleteTournament( @PathVariable Integer id) {
+    ResponseEntity<?> deleteTournament(@PathVariable Integer id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
         } else {
@@ -99,8 +91,18 @@ public class TournamentController {
         }
     }
 
-    private List<UserForTournamentDTO> fetchUsersForTournament (List<User> users) {
-        return  users.stream().map(o -> new UserForTournamentDTO
-                (o.getId(), o.getName(), o.getLastName())).collect(Collectors.toList());
+    @GetMapping("/get-tournament{id}-matches")
+    List<MatchDTO> getTournamentMatches(@PathVariable Integer id){
+        return this.fetchTournamentMatches(tournamentRepository.findTournamentById(id).getMatches());
+    }
+
+    private List<UserForTournamentDTO> fetchUsersForTournament(List<User> users) {
+        return users.stream().map(u -> new UserForTournamentDTO
+                (u.getId(), u.getName(), u.getLastName())).collect(Collectors.toList());
+    }
+
+    private List<MatchDTO> fetchTournamentMatches(List<Match> matches) {
+        return matches.stream().map(m -> new MatchDTO(m.getId(), m.getFirstPlayer().getId(), m.getSecondPlayer().getId(),
+                m.getFinalResult(), m.getTournament().getId())).collect(Collectors.toList());
     }
 }

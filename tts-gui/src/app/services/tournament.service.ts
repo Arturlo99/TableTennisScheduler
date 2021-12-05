@@ -8,25 +8,15 @@ import { TournamentDetails } from '../models/tournament-details';
   providedIn: 'root'
 })
 export class TournamentService {
+  tournamentsUrl = 'http://localhost:8080/tournaments/all'
+  tournamentDetailsUrl = 'http://localhost:8080/tournaments/details/'
+  tournamentEnrollUrl = 'http://localhost:8080/tournaments/enroll'
+  tournamentDeleteUrl = 'http://localhost:8080/delete-event/'
 
-  private tournamentsUrl: string
-  private tournamentDetailsUrl: string
-  private tournamentEnrollUrl: string
-  private tournamentDeleteUrl: string
-
-  constructor(private http: HttpClient) {
-    this.tournamentsUrl = 'http://localhost:8080/tournaments/all'
-    this.tournamentDetailsUrl = 'http://localhost:8080/tournaments/details/'
-    this.tournamentEnrollUrl = 'http://localhost:8080/tournaments/enroll'
-    this.tournamentDeleteUrl = 'http://localhost:8080/delete-event/'
-  }
+  constructor(private http: HttpClient) { }
 
   public findAll(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(this.tournamentsUrl);
-  }
-
-  public findTournamentDetailsUsingId(id: string): Observable<TournamentDetails> {
-    return this.http.get<TournamentDetails>(this.tournamentDetailsUrl.concat(id))
   }
 
   public findTournamentDetailsUsingIdAndEmail(id: string, email: string): Observable<TournamentDetails> {
@@ -42,5 +32,9 @@ export class TournamentService {
 
   public deleteTournament(tournamentId: number) {
     return this.http.delete<any>(this.tournamentDeleteUrl.concat(tournamentId.toString()));
+  }
+
+  public getTournamentMatches(tournamentId: number) {
+    return this.http.get<any>(`http://localhost:8080/get-tournament${tournamentId}-matches`)
   }
 }

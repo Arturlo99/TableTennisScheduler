@@ -1,7 +1,5 @@
 package com.ttscore.dto;
 
-import com.ttscore.model.Match;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class TournamentDetailsDTO {
     private Integer maxPlayers;
     private Boolean userEnrolled;
     private List<UserForTournamentDTO> users;
-    private List<Match> matches;
+    private List<MatchDTO> matches;
 
     public TournamentDetailsDTO(String name, LocalDateTime date, Integer organizerId, String organizerName,
                                 String organizerLastName, String description, Integer enrolledPlayers, String city,
@@ -38,7 +36,7 @@ public class TournamentDetailsDTO {
     public TournamentDetailsDTO(String name, LocalDateTime date, Integer organizerId, String organizerName,
                                 String organizerLastName, String description, Integer enrolledPlayers,
                                 String city, String street, Integer maxPlayers, Boolean userEnrolled,
-                                List<UserForTournamentDTO> users, List<Match> matches) {
+                                List<UserForTournamentDTO> users, List<MatchDTO> matches) {
         this.name = name;
         this.date = date;
         this.organizerId = organizerId;
@@ -150,11 +148,11 @@ public class TournamentDetailsDTO {
         this.organizerLastName = organizerLastName;
     }
 
-    public List<Match> getMatches() {
+    public List<MatchDTO> getMatches() {
         return matches;
     }
 
-    public void setMatches(List<Match> matches) {
+    public void setMatches(List<MatchDTO> matches) {
         this.matches = matches;
     }
 }

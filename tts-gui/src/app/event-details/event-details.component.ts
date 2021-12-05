@@ -8,12 +8,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Match } from '../models/match';
 import { EditMatchResultsDialogComponent } from './edit-match-results-dialog/edit-match-results-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatchService } from '../services/match.service';
+import { UpdateTournamentMatches } from '../models/update-tournament-matches';
+import { formatDate } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export interface UserTableData {
   position: number;
   name: string
-  matchResult: string
+  matches: Match[]
 }
 @Component({
   selector: 'app-event-details',
@@ -23,81 +27,124 @@ export interface UserTableData {
 export class EventDetailsComponent implements OnInit {
   tournamentDetails?: TournamentDetails
   tournamentId: string
-  currentDate
-  isClosed: boolean
+  currentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en')
+  wereMatchesGenerated?: boolean
   shouldDisableEnrollButton: boolean = true
   displayedColumns: string[] = ['position', 'name'];
   dataSource: any;
-  usersTableData: any[] = []
-  tournamentMatches: Match[] = []
+  usersTableData: UserTableData[] = []
+
 
   constructor(private session: SessionService, private tournamentService: TournamentService, private route: ActivatedRoute,
-    private router: Router, public dialog: MatDialog) {
+    public dialog: MatDialog, private matchService: MatchService, private snackBar: MatSnackBar) {
     this.tournamentId = this.route.snapshot.paramMap.get('id');
-    this.currentDate = new Date();
   }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('token') == '' || sessionStorage.getItem('token') == null || !this.session.loggedIn) {
-      this.tournamentService.findTournamentDetailsUsingId(this.tournamentId).subscribe(data => {
-        this.tournamentDetails = data;
-        this.checkIfEnrollButtonShouldBeDisabled()
-        this.prepareUsersDataToDisplay(data.users)
-      })
-    } else {
-      this.tournamentService.findTournamentDetailsUsingIdAndEmail(this.tournamentId, this.session.getEmailFromSession())
-        .subscribe(data => {
-          this.tournamentDetails = data;
-          this.checkIfEnrollButtonShouldBeDisabled()
-          this.prepareUsersDataToDisplay(data.users)
-        })
+    let email = ' '
+    if (this.session.loggedIn) {
+      email = this.session.getEmailFromSession()
     }
+    this.tournamentService.findTournamentDetailsUsingIdAndEmail(this.tournamentId, email)
+      .subscribe(response => {
+        if (response.matches.length > 0) {
+          this.wereMatchesGenerated = true
+        }
+        this.tournamentDetails = response;
+        this.checkIfEnrollButtonShouldBeEnabled()
+        this.prepareUsersDataToDisplay(response.users)
+      })
   }
 
   enroll() {
     this.tournamentService.enrollForTournament(this.session.getEmailFromSession(), this.tournamentId).subscribe(data => {
       this.tournamentDetails.userEnrolled = data.userEnrolled
       this.tournamentDetails.enrolledPlayers = data.enrolledPlayers
+      this.snackBar.open('Successfully enrolled for the tournament', 'Ok', {
+        duration: 2000,
+      });
     }), (error) => {
       if (error.status == 405) {
-        alert('Action is not possible.')
+        this.snackBar.open('Operation not allowed!', 'Ok', {
+          duration: 2000,
+        });
       } else {
-        alert('Something went wrong.')
+        this.snackBar.open('Unrecognized error occured!', 'Ok', {
+          duration: 2000,
+        });
       }
     }
   }
 
-  checkIfEnrollButtonShouldBeDisabled() {
-    if (!this.session.loggedIn || this.currentDate > this.tournamentDetails.date) {
-      this.shouldDisableEnrollButton = true;
+  checkIfEnrollButtonShouldBeEnabled() {
+    if (this.session.loggedIn || this.currentDate < this.tournamentDetails.date.split('T')[0]) {
+      this.shouldDisableEnrollButton = false;
     }
   }
 
   prepareUsersDataToDisplay(users?: UserForTournament[]) {
     for (let i in users) {
-      for (let j in users) {
-        if (i > j) {
-          this.tournamentMatches.push(new Match(+this.tournamentId, +i, +j, '3:0', ''))
-        }
-      }
       this.displayedColumns.push(i);
       this.usersTableData.push({
-        position: +i, name: users[i].name.charAt(0).concat('. ' + users[i].lastName),
-        matches: this.tournamentMatches.filter(match => match.firstPlayerId === +i)
+        position: +i, name: users[i].name.charAt(0).concat('. ' + users[i].lastName), matches: this.tournamentDetails.matches.filter(match => match.firstPlayerId === users[i].id)
       })
-
     }
     this.dataSource = new MatTableDataSource(this.usersTableData);
   }
 
   openEditMatchResultsPopup(match: Match) {
-    const dialogRef = this.dialog.open(EditMatchResultsDialogComponent, { data: { match: match } })
+    const dialogRef = this.dialog.open(EditMatchResultsDialogComponent)
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== false) {
-        match.finalResult = result;
+      if (result.saved === true) {
+        match.finalResult = result.result;
+        this.matchService.updateMatch(match).subscribe(response => {
+          this.snackBar.open('Result saved successfully.', 'Ok', {
+            duration: 2000,
+          });
+        })
       }
     });
   }
-}
 
+  generateMatches() {
+    if (this.tournamentDetails.users.length > 0) {
+      let generatedMatches = []
+      for (let i in this.tournamentDetails.users) {
+        for (let j in this.tournamentDetails.users) {
+          if (i > j) {
+            generatedMatches.push(new Match(+this.tournamentId, this.tournamentDetails.users[i].id, this.tournamentDetails.users[j].id, '0:0'))
+          }
+        }
+      }
+      this.matchService.generateTournamentMatches(new UpdateTournamentMatches(generatedMatches,
+        this.session.getEmailFromSession())).subscribe((response) => {
+          this.snackBar.open('Successfully generated matches!', 'Ok', {
+            duration: 2000,
+          });
+          this.wereMatchesGenerated = true
+          this.tournamentService.getTournamentMatches(+this.tournamentId).subscribe(response =>{
+            this.tournamentDetails.matches = response
+            this.updateTable()
+          })
+        }, (error) => {
+          if (error.status === 405)
+            this.snackBar.open('Operation not allowed!', 'Ok', {
+              duration: 2000,
+            });
+        })
+    }
+  }
+
+  updateTable() {
+    for (let i in this.tournamentDetails.users) {
+      this.usersTableData[i].matches = this.tournamentDetails.matches.filter(match => this.tournamentDetails.users[i].id === match.firstPlayerId)
+    }
+    this.dataSource = new MatTableDataSource(this.usersTableData);
+  }
+
+
+  isRoleAdmin() {
+    return this.session.getUserRole() === 'ROLE_ADMIN'
+  }
+}

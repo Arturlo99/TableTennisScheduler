@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import crypto from 'crypto-js';
 import { SessionService } from '../services/session.service';
@@ -13,7 +14,8 @@ import { SessionService } from '../services/session.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup
 
-  constructor(private session: SessionService, private http: HttpClient, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private session: SessionService, private http: HttpClient, private router: Router, private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     sessionStorage.setItem('token', '')
@@ -35,9 +37,14 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('role', data.role);
         this.session.loggedIn = true;
         this.router.navigate(['']);
+        this.snackBar.open('Successfully logged in.', 'Ok', {
+          duration: 2000,
+        });
       } else {
         this.session.loggedIn = false;
-        alert('Wrong credentials');
+        this.snackBar.open('Wrong credentials.', 'Ok', {
+          duration: 2000,
+        });
       }
     });
   }

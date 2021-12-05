@@ -14,5 +14,5 @@ export class TournamentDetails {
     maxPlayers: number
     userEnrolled: boolean
     users: UserForTournament[]
-    matches: Match[]
+    matches?: Match[]
 }

@@ -1,5 +1,7 @@
 package com.ttscore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -17,13 +19,15 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;
-    @ManyToMany
-    @JoinTable(
-            name = "t_match_user",
-            joinColumns = @JoinColumn(name = "match_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> players;
+
+    public Match() {}
+
+    public Match(User firstPlayer, User secondPlayer, String finalResult, Tournament tournament) {
+        this.firstPlayer = firstPlayer;
+        this.secondPlayer = secondPlayer;
+        this.finalResult = finalResult;
+        this.tournament = tournament;
+    }
 
     public Integer getId() {
         return id;
@@ -47,14 +51,6 @@ public class Match {
 
     public void setTournament(Tournament tournament) {
         this.tournament = tournament;
-    }
-
-    public Set<User> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Set<User> players) {
-        this.players = players;
     }
 
     public User getFirstPlayer() {

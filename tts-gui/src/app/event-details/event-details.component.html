@@ -52,15 +52,22 @@
         <ng-container *ngFor="let disCol of displayedColumns.slice(2); let colIndex = index" matColumnDef="{{disCol}}">
             <mat-header-cell *matHeaderCellDef>{{disCol}}</mat-header-cell>
             <mat-cell  *matCellDef="let userTableData">
-                <span *ngIf=" userTableData.position > colIndex">
-                    {{userTableData.matches[colIndex].finalResult}}
-                    <button (click)="openEditMatchResultsPopup(userTableData.matches[colIndex])" mat-icon-button color="primary">
+                <span *ngIf=" userTableData.position > colIndex && userTableData.matches.length > 0">
+                    {{userTableData?.matches[colIndex].finalResult}}
+                    <button *ngIf="isRoleAdmin()" (click)="openEditMatchResultsPopup(userTableData.matches[colIndex])" mat-icon-button color="primary">
                         <mat-icon>edit</mat-icon>
                     </button>
-                </span> </mat-cell>
+                </span>
+                <!-- <span *ngIf=" userTableData.position < colIndex && userTableData.matches.length > 0">
+                    {{userTableData?.matches[colIndex].finalResult}}
+                </span> -->
+            </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </table>
+</div>
+<div *ngIf="isRoleAdmin() && !this.wereMatchesGenerated" class="btn">
+    <button mat-flat-button color="primary" (click)="generateMatches()" >Generate matches</button>
 </div>

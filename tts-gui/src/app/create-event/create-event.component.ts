@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
 
@@ -22,15 +23,7 @@ export class CreateEventComponent implements OnInit {
   descriptionFormControl = new FormControl('', []);
   matcher = new MyErrorStateMatcher();
 
-  name: string
-  city: string
-  street: string
-  date: string
-  time: string
-  maxPlayers: number
-  description: string
-
-  constructor(private session: SessionService,private httpClient: HttpClient, private router: Router) { }
+  constructor(private session: SessionService,private httpClient: HttpClient, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -43,29 +36,28 @@ export class CreateEventComponent implements OnInit {
 
   createNewTournament() {
     this.httpClient.post<any>('http://localhost:8080/create-event', {
-      name: this.name,
-      city: this.city,
-      street: this.street,
-      date: this.toLocalDateTime(this.date, this.time),
-      maxPlayers: this.maxPlayers,
-      description: this.description,
+      name: this.nameFormControl.value,
+      city: this.cityFormControl.value,
+      street: this.streetFormControl.value,
+      date: this.session.toLocalDateTime(this.dateFormControl.value, this.timeFormControl.value),
+      maxPlayers: this.maxPlayersFormControl.value,
+      description: this.descriptionFormControl.value,
       organizerEmail: this.session.getEmailFromSession() 
     }).subscribe((response) => {
-      alert('Successfully created new tournament!');
+      this.snackBar.open('Successfully created new tournament!', 'Ok', {
+        duration: 2000,
+      });
       this.router.navigate(['']);
     }, (error) => {
-      alert('Something went wrong.');
+      this.snackBar.open('You are not allowed to create new tournament.', 'Ok', {
+        duration: 2000,
+      });
     })
   }
 
   formInvalid() {
     return (this.nameFormControl.invalid || this.cityFormControl.invalid || this.streetFormControl.invalid || this.timeFormControl.invalid || this.dateFormControl.invalid || this.maxPlayersFormControl.invalid)
   }
-
-  toLocalDateTime(date: string, hour: string) {
-    return formatDate(date, 'yyyy-MM-dd', 'en').concat('T'+ hour.concat(':00'))
-  }
-
 }
 
 /** Error when invalid control is dirty, touched, or submitted. */

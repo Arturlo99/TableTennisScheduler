@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatchingValidator } from './matching.validator';
 import crypto from 'crypto-js';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +14,7 @@ import crypto from 'crypto-js';
 export class RegistrationComponent implements OnInit {
   registerForm: FormGroup
 
-  constructor(private httpClient: HttpClient, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private httpClient: HttpClient, private router: Router, private formBuilder: FormBuilder, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -33,17 +34,21 @@ export class RegistrationComponent implements OnInit {
       password: this.encodeUsingSha256(this.registerForm.value.password.toString()),
       name: this.registerForm.value.name,
       lastName: this.registerForm.value.lastname,
-      role: 'user',
-      creationDate: new Date()
 
     }).subscribe((response) => {
-      alert('Successfully registered!');
+      this.snackBar.open('Successfully registered!', 'Ok', {
+        duration: 2000,
+      });
       this.router.navigate(['']);
     }, (error) => {
       if (error.status == 406) {
-        alert('The email is already used.');
+        this.snackBar.open('The email is already used.', 'Ok', {
+          duration: 2000,
+        });
       } else {
-        alert('Something went wrong.');
+        this.snackBar.open('Unrecognized error occured.', 'Ok', {
+          duration: 2000,
+        });
       }
     })
   }

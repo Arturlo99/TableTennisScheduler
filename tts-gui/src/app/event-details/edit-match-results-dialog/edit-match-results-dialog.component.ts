@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Match } from 'src/app/models/match';
 
@@ -8,12 +9,14 @@ import { Match } from 'src/app/models/match';
   styleUrls: ['./edit-match-results-dialog.component.css']
 })
 export class EditMatchResultsDialogComponent implements OnInit {
-  finalResult: string
+  resultsForm = this.formBuilder.group({
+    result: ['', [Validators.required, Validators.pattern('[0-9]:[0-9]')]],
+  })
 
   constructor(
     public dialogRef: MatDialogRef<EditMatchResultsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {match: Match},
-  ) { this.finalResult = data.match.finalResult }
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
   }

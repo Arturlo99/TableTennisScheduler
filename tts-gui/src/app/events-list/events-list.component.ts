@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Tournament } from '../models/tournament';
 import { TournamentService } from '../services/tournament.service';
 import { MatSort } from '@angular/material/sort';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-events-list',
@@ -14,9 +14,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 export class EventsListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'place', 'date', 'enrolledPlayers']
   tournaments: Tournament[]
-  indexToBeDeleted: number =-1;
   dataSource: MatTableDataSource<Tournament>
-  currentDate
+  currentDate = new Date()
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -28,7 +27,6 @@ export class EventsListComponent implements OnInit {
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort;
     })
-    this.currentDate = new Date()
   }
 
   ngOnInit(): void {
@@ -44,14 +42,14 @@ export class EventsListComponent implements OnInit {
   deleteTournament(tournamentId: number) {
     this.tournamentService.deleteTournament(tournamentId).subscribe(data => {
       this.tournaments.forEach((tournament, id) => {
-        if(tournament.id === tournamentId) this.tournaments.splice(id,1);
+        if (tournament.id === tournamentId) this.tournaments.splice(id, 1);
       });
-      
+
       this.dataSource = new MatTableDataSource(this.tournaments);
     });
   }
 
-  openConfirmationPopup(tournamentId: number){
+  openConfirmationPopup(tournamentId: number) {
     const dialogRef = this.dialog.open(DialogOverviewExampleComponent)
 
     dialogRef.afterClosed().subscribe(result => {
@@ -71,7 +69,7 @@ export class DialogOverviewExampleComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleComponent>,
     @Inject(MAT_DIALOG_DATA) public tournamentId: number,
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

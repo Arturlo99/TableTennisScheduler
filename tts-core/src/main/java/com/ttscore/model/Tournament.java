@@ -1,5 +1,7 @@
 package com.ttscore.model;
 
+import com.ttscore.dto.MatchDTO;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;

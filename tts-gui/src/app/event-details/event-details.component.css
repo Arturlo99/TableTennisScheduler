@@ -32,3 +32,8 @@ mat-header-cell, mat-cell {
     border-right: 1px solid currentColor;
 
 }
+.btn {
+    width:50%;
+    margin-left:25%;
+    margin-right:25%;
+}

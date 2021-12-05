@@ -15,19 +15,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { CreateEventComponent } from './create-event/create-event.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogOverviewExampleComponent } from './events-list/events-list.component';
 import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { EditMatchResultsDialogComponent } from './event-details/edit-match-results-dialog/edit-match-results-dialog.component';
+import { EditMatchResultsDialogComponent } from './event-details/edit-match-results-dialog/edit-match-results-dialog.component'
 import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -81,9 +82,10 @@ export class XhrInterceptor implements HttpInterceptor {
     MatSelectModule,
     MatSortModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

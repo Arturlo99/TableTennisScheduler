@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/tournaments/details/*").permitAll()
                 .antMatchers("/create-event").hasRole("ADMIN")
                 .antMatchers("/delete-event").hasRole("ADMIN")
+                .antMatchers("/update-tournament-matches").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().cors().and().csrf().disable();
     }
