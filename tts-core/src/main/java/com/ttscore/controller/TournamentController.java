@@ -52,14 +52,14 @@ public class TournamentController {
                     user.getTournaments().remove(t);
                     tournamentRepository.save(t);
                     userRepository.save(user);
-                    return new ResponseEntity<>(new TournamentEnrollmentResponseDTO(t.getUsers().size(), false),
+                    return new ResponseEntity<>(new TournamentEnrollmentResponseDTO(false, fetchUsersForTournament(t.getUsers())),
                             HttpStatus.OK);
                 } else if (t.getUsers().size() < t.getMaxPlayers()) {
                     t.getUsers().add(user);
                     user.getTournaments().add(t);
                     tournamentRepository.save(t);
                     userRepository.save(user);
-                    return new ResponseEntity<>(new TournamentEnrollmentResponseDTO(t.getUsers().size(), true),
+                    return new ResponseEntity<>(new TournamentEnrollmentResponseDTO(true, fetchUsersForTournament(t.getUsers())),
                             HttpStatus.OK);
                 }
             }

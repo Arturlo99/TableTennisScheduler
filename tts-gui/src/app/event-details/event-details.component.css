@@ -32,11 +32,11 @@ mat-header-cell, mat-cell {
     border-right: 1px solid currentColor;
 
 }
-.btn {
-    width:50%;
-    margin-left:25%;
-    margin-right:25%;
-}
 .diagonal {
     background-color: rgb(78, 77, 77);
+}
+
+#wrapper {
+    display: flex;
+    justify-content: center;
 }

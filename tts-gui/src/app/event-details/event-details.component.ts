@@ -59,14 +59,12 @@ export class EventDetailsComponent implements OnInit {
   enroll() {
     this.tournamentService.enrollForTournament(this.session.getEmailFromSession(), this.tournamentId).subscribe(data => {
       this.tournamentDetails.userEnrolled = data.userEnrolled
-      this.tournamentDetails.enrolledPlayers = data.enrolledPlayers
+      this.tournamentDetails.users = data.users
+      this.tournamentDetails.enrolledPlayers = this.tournamentDetails.users.length
       this.snackBar.open('The operation was successful', 'Ok', {
         duration: 2000,
       });
-      this.tournamentService.findTournamentDetailsUsingIdAndEmail(this.tournamentId, this.email)
-      .subscribe(response => {
-        this.prepareUsersDataToDisplay(response.users)
-      })
+      this.prepareUsersDataToDisplay(this.tournamentDetails.users)
     }), (error) => {
       if (error.status == 405) {
         this.snackBar.open('Operation not allowed!', 'Ok', {
