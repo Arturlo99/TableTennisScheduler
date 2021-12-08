@@ -33,6 +33,7 @@ export class EventDetailsComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name'];
   dataSource: any;
   usersTableData: UserTableData[] = []
+  email = ' '
 
 
   constructor(private session: SessionService, private tournamentService: TournamentService, private route: ActivatedRoute,
@@ -41,11 +42,10 @@ export class EventDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let email = ' '
     if (this.session.loggedIn) {
-      email = this.session.getEmailFromSession()
+      this.email = this.session.getEmailFromSession()
     }
-    this.tournamentService.findTournamentDetailsUsingIdAndEmail(this.tournamentId, email)
+    this.tournamentService.findTournamentDetailsUsingIdAndEmail(this.tournamentId, this.email)
       .subscribe(response => {
         if (response.matches.length > 0) {
           this.wereMatchesGenerated = true
@@ -60,9 +60,13 @@ export class EventDetailsComponent implements OnInit {
     this.tournamentService.enrollForTournament(this.session.getEmailFromSession(), this.tournamentId).subscribe(data => {
       this.tournamentDetails.userEnrolled = data.userEnrolled
       this.tournamentDetails.enrolledPlayers = data.enrolledPlayers
-      this.snackBar.open('Successfully enrolled for the tournament', 'Ok', {
+      this.snackBar.open('The operation was successful', 'Ok', {
         duration: 2000,
       });
+      this.tournamentService.findTournamentDetailsUsingIdAndEmail(this.tournamentId, this.email)
+      .subscribe(response => {
+        this.prepareUsersDataToDisplay(response.users)
+      })
     }), (error) => {
       if (error.status == 405) {
         this.snackBar.open('Operation not allowed!', 'Ok', {
@@ -77,12 +81,17 @@ export class EventDetailsComponent implements OnInit {
   }
 
   checkIfEnrollButtonShouldBeDisabled() {
-    if ((this.session.loggedIn || this.currentDate < this.tournamentDetails.date.split('T')[0]) && !this.wereMatchesGenerated) {
+    if (!this.session.loggedIn || this.currentDate > this.tournamentDetails.date.split('T')[0] || this.wereMatchesGenerated ||
+        (this.tournamentDetails.enrolledPlayers == this.tournamentDetails.maxPlayers) && !this.tournamentDetails.userEnrolled ) {
+      this.shouldDisableEnrollButton = true;
+    } else {
       this.shouldDisableEnrollButton = false;
     }
   }
 
   prepareUsersDataToDisplay(users?: UserForTournament[]) {
+    this.displayedColumns = ['position', 'name'];
+    this.usersTableData = []
     for (let i in users) {
       this.displayedColumns.push(i);
       this.usersTableData.push({
@@ -123,7 +132,7 @@ export class EventDetailsComponent implements OnInit {
             duration: 2000,
           });
           this.wereMatchesGenerated = true
-          this.tournamentService.getTournamentMatches(+this.tournamentId).subscribe(response =>{
+          this.tournamentService.getTournamentMatches(+this.tournamentId).subscribe(response => {
             this.tournamentDetails.matches = response
             this.updateTable()
           })

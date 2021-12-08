@@ -59,7 +59,6 @@ public class TournamentController {
                     user.getTournaments().add(t);
                     tournamentRepository.save(t);
                     userRepository.save(user);
-
                     return new ResponseEntity<>(new TournamentEnrollmentResponseDTO(t.getUsers().size(), true),
                             HttpStatus.OK);
                 }
