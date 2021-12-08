@@ -7,14 +7,7 @@ import { Injectable } from '@angular/core';
 export class SessionService {
   public loggedIn: boolean;
 
-  constructor() {
-    if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != '') {
-      this.loggedIn = true;
-    } else {
-      sessionStorage.setItem('token', '');
-      this.loggedIn = false;
-    }
-  }
+  constructor() { }
 
   getEmailFromSession() {
     return atob(sessionStorage.getItem('token')).split(':')[0];
@@ -25,6 +18,6 @@ export class SessionService {
   }
 
   toLocalDateTime(date: string, hour: string) {
-    return formatDate(date, 'yyyy-MM-dd', 'en').concat('T'+ hour.concat(':00'))
+    return formatDate(date, 'yyyy-MM-dd', 'en').concat('T' + hour.concat(':00'))
   }
 }

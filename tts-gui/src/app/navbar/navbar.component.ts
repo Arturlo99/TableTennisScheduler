@@ -10,7 +10,12 @@ import { SessionService } from '../services/session.service';
 export class NavbarComponent implements OnInit {
 
   constructor(private router: Router, private session: SessionService) {
-    this.session.loggedIn = false;
+    if (sessionStorage.getItem('token') != null && sessionStorage.getItem('token') != '') {
+      this.session.loggedIn = true;
+    } else {
+      sessionStorage.setItem('token', '');
+      this.session.loggedIn = false;
+    }
   }
 
   ngOnInit(): void {
