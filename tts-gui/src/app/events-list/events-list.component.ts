@@ -69,7 +69,6 @@ export class EventsListComponent implements OnInit {
       }
     });
   }
-
 }
 
 @Component({

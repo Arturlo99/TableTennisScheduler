@@ -12,7 +12,7 @@ CREATE TABLE T_MATCH
 CREATE TABLE T_ROLE
 (
     ID   int         NOT NULL AUTO_INCREMENT,
-    name varchar(30) NOT NULL UNIQUE,
+    NAME varchar(30) NOT NULL UNIQUE,
     PRIMARY KEY (ID)
 );
 CREATE TABLE T_TOURNAMENT
@@ -30,7 +30,7 @@ CREATE TABLE T_TOURNAMENT
 CREATE TABLE T_USER
 (
     ID        int          NOT NULL AUTO_INCREMENT,
-    EMAIL     varchar(50)  NOT NULL,
+    EMAIL     varchar(50)  NOT NULL UNIQUE,
     PASSWORD  varchar(255) NOT NULL,
     NAME      varchar(50)  NOT NULL,
     LAST_NAME varchar(50)  NOT NULL,
