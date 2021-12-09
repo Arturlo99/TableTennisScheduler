@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { TournamentDetails } from '../models/tournament-details';
-import { TournamentService } from '../services/tournament.service';
+import { TournamentDetails } from '../../models/tournament-details';
+import { TournamentService } from '../../services/tournament.service';
 import { ActivatedRoute } from '@angular/router';
-import { SessionService } from '../services/session.service';
-import { UserForTournament } from '../models/user-for-tournament';
+import { SessionService } from '../../services/session.service';
+import { UserForTournament } from '../../models/user-for-tournament';
 import { MatTableDataSource } from '@angular/material/table';
-import { Match } from '../models/match';
+import { Match } from '../../models/match';
 import { EditMatchResultsDialogComponent } from './edit-match-results-dialog/edit-match-results-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatchService } from '../services/match.service';
-import { UpdateTournamentMatches } from '../models/update-tournament-matches';
+import { MatchService } from '../../services/match.service';
+import { UpdateTournamentMatches } from '../../models/update-tournament-matches';
 import { formatDate } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

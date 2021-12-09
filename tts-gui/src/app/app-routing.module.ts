@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BackgroundComponent } from './background/background.component';
-import { CreateEventComponent } from './create-event/create-event.component';
-import { EventDetailsComponent } from './event-details/event-details.component';
-import { EventsListComponent } from './events-list/events-list.component';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { BackgroundComponent } from './components/background/background.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
+import { EventDetailsComponent } from './components/event-details/event-details.component';
+import { EventsListComponent } from './components/events-list/events-list.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 const routes: Routes = [
   { path: '', component: BackgroundComponent },

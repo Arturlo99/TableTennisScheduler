@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Tournament } from '../models/tournament';
-import { TournamentService } from '../services/tournament.service';
+import { Tournament } from '../../models/tournament';
+import { TournamentService } from '../../services/tournament.service';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { TournamentService } from '../services/tournament.service';
+import { TournamentService } from '../../services/tournament.service';
 
 @Component({
   selector: 'app-create-event',

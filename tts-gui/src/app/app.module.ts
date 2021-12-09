@@ -6,26 +6,26 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './navbar/navbar.component';
-import { BackgroundComponent } from './background/background.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { BackgroundComponent } from './components/background/background.component';
 import { HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { EventsListComponent } from './events-list/events-list.component';
+import { EventsListComponent } from './components/events-list/events-list.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { EventDetailsComponent } from './event-details/event-details.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { EventDetailsComponent } from './components/event-details/event-details.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { CreateEventComponent } from './create-event/create-event.component';
+import { LoginComponent } from './components/login/login.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogOverviewExampleComponent } from './events-list/events-list.component';
-import { EditMatchResultsDialogComponent } from './event-details/edit-match-results-dialog/edit-match-results-dialog.component'
+import { DialogOverviewExampleComponent } from './components/events-list/events-list.component';
+import { EditMatchResultsDialogComponent } from './components/event-details/edit-match-results-dialog/edit-match-results-dialog.component'
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
