@@ -25,7 +25,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogOverviewExampleComponent } from './events-list/events-list.component';
-import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { EditMatchResultsDialogComponent } from './event-details/edit-match-results-dialog/edit-match-results-dialog.component'
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';

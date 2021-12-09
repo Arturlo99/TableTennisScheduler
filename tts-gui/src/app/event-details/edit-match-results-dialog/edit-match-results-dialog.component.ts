@@ -1,7 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Match } from 'src/app/models/match';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-match-results-dialog',

@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Match } from '../models/match';
 import { UpdateTournamentMatches } from '../models/update-tournament-matches';
+import { GlobalConstants } from '../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatchService {
-  private generateTournamentMatchesUrl: string = "http://localhost:8080/generate-tournament-matches"
-  private updateMatchUrl: string = "http://localhost:8080/update-match"
+  private generateTournamentMatchesUrl: string = GlobalConstants.apiURL + "generate-tournament-matches"
+  private updateMatchUrl: string = GlobalConstants.apiURL + "update-match"
 
   constructor(private http: HttpClient) { }
 
