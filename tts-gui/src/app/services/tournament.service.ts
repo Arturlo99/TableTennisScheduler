@@ -39,10 +39,6 @@ export class TournamentService {
     return this.http.delete<any>(this.tournamentDeleteUrl.concat(tournamentId.toString()));
   }
 
-  public getTournamentMatches(tournamentId: number) {
-    return this.http.get<any>(GlobalConstants.apiURL + `get-tournament${tournamentId}-matches`)
-  }
-
   createNewTournament(createEventForm: FormGroup) {
     this.http.post<any>(GlobalConstants.apiURL + 'create-event', {
       name: createEventForm.value.name,

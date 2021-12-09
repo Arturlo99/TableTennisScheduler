@@ -94,11 +94,6 @@ public class TournamentController {
         }
     }
 
-    @GetMapping("/get-tournament{id}-matches")
-    List<MatchDTO> getTournamentMatches(@PathVariable Integer id) {
-        return this.fetchTournamentMatches(tournamentRepository.findTournamentById(id).getMatches());
-    }
-
     private List<UserForTournamentDTO> fetchUsersForTournament(List<User> users) {
         return users.stream().map(u -> new UserForTournamentDTO
                 (u.getId(), u.getName(), u.getLastName())).collect(Collectors.toList());

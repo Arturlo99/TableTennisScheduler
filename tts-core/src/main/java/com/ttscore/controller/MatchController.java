@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @CrossOrigin(originPatterns = "http://localhost:4200")
 public class MatchController {
@@ -27,16 +30,18 @@ public class MatchController {
     private MatchRepository matchRepository;
 
     @PostMapping("/generate-tournament-matches")
-    ResponseEntity<?> generateTournamentMatches(@RequestBody GenerateTournamentMatchesDTO requestBody) {
+    ResponseEntity<List<MatchDTO>> generateTournamentMatches(@RequestBody GenerateTournamentMatchesDTO requestBody) {
         User u = userRepository.findUserByEmail(requestBody.getUserEmail());
         Tournament t = tournamentRepository.findTournamentById(requestBody.getMatches().get(0).getTournamentId());
         if (t != null && u != null) {
+            List<Match> matchesToBeSaved = new ArrayList<>();
             requestBody.getMatches().forEach(match -> {
                 User firstPlayer = userRepository.findUserById(match.getFirstPlayerId());
                 User secondPlayer = userRepository.findUserById(match.getSecondPlayerId());
-                matchRepository.save(new Match(firstPlayer, secondPlayer, match.getFinalResult(), t));
+                matchesToBeSaved.add(new Match(firstPlayer, secondPlayer, match.getFinalResult(), t));
             });
-            return new ResponseEntity<>(HttpStatus.OK);
+            matchRepository.saveAll(matchesToBeSaved);
+            return new ResponseEntity<>(requestBody.getMatches(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
     }

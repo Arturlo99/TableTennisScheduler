@@ -28,7 +28,7 @@ export class EventDetailsComponent implements OnInit {
   tournamentDetails?: TournamentDetails
   tournamentId: string
   currentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en')
-  wereMatchesGenerated?: boolean
+  wereMatchesGenerated?: boolean = true
   shouldDisableEnrollButton: boolean = true
   displayedColumns: string[] = ['position', 'name'];
   dataSource: any;
@@ -49,6 +49,8 @@ export class EventDetailsComponent implements OnInit {
       .subscribe(response => {
         if (response.matches.length > 0) {
           this.wereMatchesGenerated = true
+        } else {
+          this.wereMatchesGenerated = false
         }
         this.tournamentDetails = response;
         this.checkIfEnrollButtonShouldBeDisabled()
@@ -80,7 +82,7 @@ export class EventDetailsComponent implements OnInit {
 
   checkIfEnrollButtonShouldBeDisabled() {
     if (!this.session.loggedIn || this.currentDate > this.tournamentDetails.date.split('T')[0] || this.wereMatchesGenerated ||
-        (this.tournamentDetails.enrolledPlayers == this.tournamentDetails.maxPlayers) && !this.tournamentDetails.userEnrolled ) {
+      (this.tournamentDetails.enrolledPlayers == this.tournamentDetails.maxPlayers) && !this.tournamentDetails.userEnrolled) {
       this.shouldDisableEnrollButton = true;
     } else {
       this.shouldDisableEnrollButton = false;
@@ -93,7 +95,9 @@ export class EventDetailsComponent implements OnInit {
     for (let i in users) {
       this.displayedColumns.push(i);
       this.usersTableData.push({
-        position: +i, name: users[i].name.charAt(0).concat('. ' + users[i].lastName), matches: this.tournamentDetails.matches.filter(match => match.firstPlayerId === users[i].id || match.secondPlayerId === users[i].id)
+        position: +i, name: users[i].name.charAt(0).concat('. ' + users[i].lastName),
+        matches: this.tournamentDetails.matches.filter(match =>
+          match.firstPlayerId === users[i].id || match.secondPlayerId === users[i].id)
       })
     }
     this.dataSource = new MatTableDataSource(this.usersTableData);
@@ -126,14 +130,12 @@ export class EventDetailsComponent implements OnInit {
       }
       this.matchService.generateTournamentMatches(new UpdateTournamentMatches(generatedMatches,
         this.session.getEmailFromSession())).subscribe((response) => {
+          this.wereMatchesGenerated = true
+          this.tournamentDetails.matches = response
+          this.updateTable()
           this.snackBar.open('Successfully generated matches!', 'Ok', {
             duration: 2000,
           });
-          this.wereMatchesGenerated = true
-          this.tournamentService.getTournamentMatches(+this.tournamentId).subscribe(response => {
-            this.tournamentDetails.matches = response
-            this.updateTable()
-          })
         }, (error) => {
           if (error.status === 405)
             this.snackBar.open('Operation not allowed!', 'Ok', {
@@ -145,7 +147,8 @@ export class EventDetailsComponent implements OnInit {
 
   updateTable() {
     for (let i in this.tournamentDetails.users) {
-      this.usersTableData[i].matches = this.tournamentDetails.matches.filter(match => this.tournamentDetails.users[i].id === match.firstPlayerId)
+      this.usersTableData[i].matches = this.tournamentDetails.matches.filter(match =>
+        this.tournamentDetails.users[i].id === match.firstPlayerId || match.secondPlayerId === this.tournamentDetails.users[i].id)
     }
     this.dataSource = new MatTableDataSource(this.usersTableData);
   }
