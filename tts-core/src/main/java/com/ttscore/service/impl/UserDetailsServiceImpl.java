@@ -1,4 +1,4 @@
-package com.ttscore.services;
+package com.ttscore.service.impl;
 
 import com.ttscore.model.CurrentUserDetails;
 import com.ttscore.repository.UserRepository;
