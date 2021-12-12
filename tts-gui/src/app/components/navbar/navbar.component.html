@@ -5,10 +5,10 @@
     </button>
   </div>
   <div class="spacer"></div>
-  <button class="button-container" mat-button routerLink="/tournaments/all">Tournaments</button>
-  <button *ngIf="!isLoggedIn()" class="button-container" mat-button routerLink="/login">Sign in</button>
-  <button *ngIf="isLoggedIn()" class="button-container" mat-raised-button color="accent"
+  <button id="tournamentsNavButton" class="button-container" mat-button routerLink="/tournaments/all">Tournaments</button>
+  <button id="loginNavButton" *ngIf="!isLoggedIn()" class="button-container" mat-button routerLink="/login">Sign in</button>
+  <button id="logoutNavButton" *ngIf="isLoggedIn()" class="button-container" mat-raised-button color="accent"
     (click)="logout()">Logout</button>
-  <button *ngIf="!isLoggedIn()" class="button-container" mat-raised-button color="accent" routerLink="/register">Sign
+  <button id="registerNavButton" *ngIf="!isLoggedIn()" class="button-container" mat-raised-button color="accent" routerLink="/register">Sign
     up</button>
 </mat-toolbar>

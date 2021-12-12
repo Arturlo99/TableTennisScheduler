@@ -1,15 +1,10 @@
 package com.ttscore.controller;
 
 import com.ttscore.dto.*;
-import com.ttscore.model.Match;
-import com.ttscore.model.User;
 import com.ttscore.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(originPatterns = "http://localhost:4200")
@@ -43,13 +38,4 @@ public class TournamentController {
         return tournamentService.deleteTournament(id);
     }
 
-    private List<UserForTournamentDTO> fetchUsersForTournament(List<User> users) {
-        return users.stream().map(u -> new UserForTournamentDTO
-                (u.getId(), u.getName(), u.getLastName())).collect(Collectors.toList());
-    }
-
-    private List<MatchDTO> fetchTournamentMatches(List<Match> matches) {
-        return matches.stream().map(m -> new MatchDTO(m.getId(), m.getFirstPlayer().getId(), m.getSecondPlayer().getId(),
-                m.getFinalResult(), m.getTournament().getId())).collect(Collectors.toList());
-    }
 }

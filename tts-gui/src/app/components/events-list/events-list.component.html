@@ -1,7 +1,4 @@
 <div class="container">
-    <div id="wrapper" *ngIf="isRoleAdmin()" class="btn">
-        <button mat-flat-button color="primary" routerLink="/create-event">Create new tournament</button>
-    </div>
     <div style="position:relative; top:15px;">
         <table mat-table [dataSource]="dataSource" class="table-striped" matSort>
             <ng-container matColumnDef="name">
@@ -22,7 +19,7 @@
             </ng-container>
 
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header >Date</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
                 <td mat-cell *matCellDef="let tournament" [ngClass]="{
               'negative' : (tournament.date | date : 'yyyyMMdd') < (currentDate | date : 'yyyyMMdd'),
               'positive' : (tournament.date | date : 'yyyyMMdd') >= (currentDate | date : 'yyyyMMdd')
@@ -47,9 +44,9 @@
                 <td mat-cell *matCellDef="let tournament" [ngClass]="{
                 'negative' : (tournament.date | date : 'yyyyMMdd') < (currentDate | date : 'yyyyMMdd'),
                 'positive' : (tournament.date | date : 'yyyyMMdd') >= (currentDate | date : 'yyyyMMdd')
-               }" width=5%><button (click)="openConfirmationPopup(tournament.id)" mat-mini-fab color="primary">
-                <mat-icon>delete</mat-icon>
-              </button>
+               }" width=5%><button [disabled]="tournament.enrolledPlayers > 0" (click)="openConfirmationPopup(tournament.id)" mat-mini-fab color="primary">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </td>
             </ng-container>
 
@@ -58,4 +55,8 @@
         </table>
         <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons></mat-paginator>
     </div>
+</div>
+<div id="wrapper" *ngIf="isRoleAdmin()">
+    <button id="createNewTournamentButton" mat-flat-button color="primary" routerLink="/create-event">Create new
+        tournament</button>
 </div>

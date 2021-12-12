@@ -31,9 +31,6 @@ table {
 .link{
   color: rgb(0, 0, 0);
 }
-.btn {
-  margin-top: 15px;
-}
 #wrapper {
   display: flex;
   justify-content: center;
