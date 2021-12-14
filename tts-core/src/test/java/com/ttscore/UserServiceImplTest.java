@@ -5,7 +5,6 @@ import com.ttscore.model.Role;
 import com.ttscore.model.User;
 import com.ttscore.repository.RoleRepository;
 import com.ttscore.repository.UserRepository;
-import com.ttscore.service.UserService;
 import com.ttscore.service.impl.UserServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,16 +12,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
@@ -33,7 +29,7 @@ class UserServiceImplTest {
     private RoleRepository roleRepository;
 
     @InjectMocks
-    UserServiceImpl userServiceImpl;
+    UserServiceImpl userService;
 
     private static final String EMAIL = "EMAIL";
     private static final String PASSWORD = "PASSWORD";
@@ -57,7 +53,7 @@ class UserServiceImplTest {
         when(roleRepository.getById(ROLE_USER_ID)).thenReturn(role);
 
         //when
-        ResponseEntity<?> result = userServiceImpl.createNewUser(user);
+        ResponseEntity<?> result = userService.createNewUser(user);
 
         //then
         Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -72,7 +68,7 @@ class UserServiceImplTest {
         when(userRepository.countUsingEmail(user.getEmail())).thenReturn(ONE);
 
         //when
-        ResponseEntity<?> result = userServiceImpl.createNewUser(user);
+        ResponseEntity<?> result = userService.createNewUser(user);
 
         //then
         Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NOT_ACCEPTABLE);
@@ -92,7 +88,7 @@ class UserServiceImplTest {
         when(credentialsDTO.getPassword()).thenReturn(PASSWORD);
 
         //when
-        Map<String, String> result = userServiceImpl.login(credentialsDTO);
+        Map<String, String> result = userService.login(credentialsDTO);
 
         //then
         Assertions.assertThat(result).containsOnly(Map.entry(LOGGED_IN, TRUE), Map.entry(ROLE, ROLE_USER));
@@ -108,7 +104,7 @@ class UserServiceImplTest {
         when(credentialsDTO.getPassword()).thenReturn(null);
 
         //when
-        Map<String, String> result = userServiceImpl.login(credentialsDTO);
+        Map<String, String> result = userService.login(credentialsDTO);
 
         //then
         Assertions.assertThat(result).containsOnly(Map.entry(LOGGED_IN, FALSE));
@@ -121,7 +117,7 @@ class UserServiceImplTest {
         when(userRepository.findUserByEmail(credentialsDTO.getEmail())).thenReturn(null);
 
         //when
-        Map<String, String> result = userServiceImpl.login(credentialsDTO);
+        Map<String, String> result = userService.login(credentialsDTO);
 
         //then
         Assertions.assertThat(result).isEmpty();
