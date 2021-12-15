@@ -3,9 +3,8 @@ describe('Registration test', () => {
         cy.visit('/')
     });
 
-    it('Click sign up', () => {
+    it('Click sign up button', () => {
         cy.get('#registerNavButton').click()
-        cy.title().should('equal', 'TableTennisScheduler')
     });
 
     let email = (Math.random() * 10000).toString(10).substring(0, 4).replace('.', "") + '@' + 'gmail.com'
@@ -26,5 +25,6 @@ describe('Registration test', () => {
         cy.get('#passwordInput').type('12345678')
         cy.get('#submitButton').click()
         cy.contains('Successfully logged in.').should('exist')
+        cy.wait(1000)
     });
 });

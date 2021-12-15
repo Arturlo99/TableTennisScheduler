@@ -6,5 +6,6 @@ describe('Login as admin', () => {
         cy.get('#passwordInput').type('adminadmin')
         cy.get('#submitButton').click()
         cy.contains('Successfully logged in.').should('exist')
+        cy.wait(1000)
     });
 });

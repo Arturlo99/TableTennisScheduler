@@ -9,7 +9,7 @@
   "viewportWidth": 1400,
   "viewportHeight": 900,
   "testFiles": [
-    "registration-test.ts",
+    "registration-login-test.ts",
     "logout-test.ts",
     "admin-login.ts",
     "create-event-test.ts",

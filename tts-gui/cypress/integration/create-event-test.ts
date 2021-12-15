@@ -1,9 +1,6 @@
-describe('Login as admin', () => {
-    before(() => {
-        cy.visit('/tournaments/all')
-    });
-
-    it('Create new tournament', () => {
+describe('Create new tournament', () => {
+    it('Fill the form', () => {
+        cy.get('#tournamentsNavButton').click();
         cy.get('#createNewTournamentButton').scrollIntoView().should('be.visible')
         cy.get('#createNewTournamentButton').click()
         cy.get('#nameInput').type('Test tournament')
