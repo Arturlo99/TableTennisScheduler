@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Map;
 
@@ -28,11 +29,15 @@ class UserServiceImplTest {
     @Mock
     private RoleRepository roleRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @InjectMocks
     UserServiceImpl userService;
 
     private static final String EMAIL = "EMAIL";
     private static final String PASSWORD = "PASSWORD";
+    private static final String ENCODED_PASSWORD = "ENCODED_PASSWORD";
     private static final String ROLE_USER = "ROLE_USER";
     private static final String LOGGED_IN = "loggedIn";
     private static final String TRUE = "true";
@@ -82,7 +87,8 @@ class UserServiceImplTest {
         User user = mock(User.class);
         Role role = mock(Role.class);
         when(userRepository.findUserByEmail(credentialsDTO.getEmail())).thenReturn(user);
-        when(user.getPassword()).thenReturn(PASSWORD);
+        when(user.getPassword()).thenReturn(ENCODED_PASSWORD);
+        when(passwordEncoder.matches(PASSWORD, ENCODED_PASSWORD)).thenReturn(true);
         when(user.getRole()).thenReturn(role);
         when(role.getName()).thenReturn(ROLE_USER);
         when(credentialsDTO.getPassword()).thenReturn(PASSWORD);

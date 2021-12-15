@@ -58,6 +58,7 @@ public class MatchServiceImplTest {
 
         //then
         Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(match.getFinalResult()).isEqualTo(FINAL_RESULT);
         verify(matchRepository).save(match);
     }
 
