@@ -10,20 +10,19 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  registerForm: FormGroup
+  registerForm = this.formBuilder.group({
+    name: ['', Validators.required],
+    lastname: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    confirmpassword: ['', [Validators.required]]
+  }, {
+    validator: MatchingValidator('password', 'confirmpassword')
+  })
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.registerForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      lastname: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmpassword: ['', [Validators.required]]
-    }, {
-      validator: MatchingValidator('password', 'confirmpassword')
-    })
   }
 
   public createNewUser(): void {
