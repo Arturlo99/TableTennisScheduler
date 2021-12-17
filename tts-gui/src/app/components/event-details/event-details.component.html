@@ -8,8 +8,8 @@
             <span style="font-size: large;"> {{tournamentDetails?.enrolledPlayers}} /
                 {{tournamentDetails?.maxPlayers}}</span>
             <button [disabled]="this.shouldDisableEnrollButton" class="btn" mat-flat-button color="primary"
-                (click)="enroll()">
-                <span *ngIf="this.tournamentDetails?.userEnrolled">Sign Off</span>
+                (click)="enrollOrWithdraw()">
+                <span *ngIf="this.tournamentDetails?.userEnrolled">Withdraw</span>
                 <span *ngIf="!this.tournamentDetails?.userEnrolled">Enroll</span>
             </button>
         </div>

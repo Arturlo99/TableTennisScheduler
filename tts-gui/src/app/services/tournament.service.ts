@@ -28,7 +28,7 @@ export class TournamentService {
     return this.http.post<TournamentDetails>(this.tournamentDetailsUrl.concat(id), email);
   }
 
-  public enrollForTournament(userEmail: string, tournamentId: string) {
+  public enrollInOrWithdrawFromTournament(userEmail: string, tournamentId: string) {
     return this.http.post<any>(this.tournamentEnrollUrl, {
       userEmail: userEmail,
       tournamentId: tournamentId

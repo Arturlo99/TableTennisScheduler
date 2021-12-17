@@ -58,8 +58,8 @@ export class EventDetailsComponent implements OnInit {
       })
   }
 
-  enroll() {
-    this.tournamentService.enrollForTournament(this.session.getEmailFromSession(), this.tournamentId).subscribe(data => {
+  enrollOrWithdraw() {
+    this.tournamentService.enrollInOrWithdrawFromTournament(this.session.getEmailFromSession(), this.tournamentId).subscribe(data => {
       this.tournamentDetails.userEnrolled = data.userEnrolled
       this.tournamentDetails.users = data.users
       this.tournamentDetails.enrolledPlayers = this.tournamentDetails.users.length
