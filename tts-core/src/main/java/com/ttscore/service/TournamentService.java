@@ -9,7 +9,7 @@ public interface TournamentService {
 
     TournamentDetailsDTO findTournamentDetailsByIdAndEmail(Integer id, String email);
 
-    ResponseEntity<TournamentEnrollmentResponseDTO> enrollForTournament(TournamentEnrollmentDTO enrollment);
+    ResponseEntity<TournamentEnrollmentResponseDTO> enrollInOrWithdrawFromTournament(TournamentEnrollmentDTO enrollment);
 
     ResponseEntity<?> createNewTournament(NewTournamentDTO newTournamentDTO);
 

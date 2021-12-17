@@ -37,7 +37,7 @@ public class TournamentServiceImplTest {
     private static final String EMAIL = "EMAIL";
 
     @Test
-    void shouldEnrollForTournament() {
+    void shouldEnrollInTournament() {
         //given
         TournamentEnrollmentDTO enrollment = new TournamentEnrollmentDTO();
         enrollment.setTournamentId(TOURNAMENT_ID);
@@ -53,7 +53,7 @@ public class TournamentServiceImplTest {
         when(tournamentRepository.findTournamentById(TOURNAMENT_ID)).thenReturn(tournament);
 
         //when
-        ResponseEntity<?> result = tournamentService.enrollForTournament(enrollment);
+        ResponseEntity<?> result = tournamentService.enrollInOrWithdrawFromTournament(enrollment);
 
         //then
         verify(tournamentRepository).save(tournament);

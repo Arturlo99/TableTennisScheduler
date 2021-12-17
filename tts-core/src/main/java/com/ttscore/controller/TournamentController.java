@@ -24,8 +24,8 @@ public class TournamentController {
     }
 
     @PostMapping("/tournaments/enroll")
-    ResponseEntity<TournamentEnrollmentResponseDTO> enrollForTournament(@RequestBody TournamentEnrollmentDTO enrollment) {
-        return tournamentService.enrollForTournament(enrollment);
+    ResponseEntity<TournamentEnrollmentResponseDTO> enrollInOrWithdrawFromTournament(@RequestBody TournamentEnrollmentDTO enrollment) {
+        return tournamentService.enrollInOrWithdrawFromTournament(enrollment);
     }
 
     @PostMapping("/create-event")

@@ -41,7 +41,7 @@ public class TournamentServiceImpl implements TournamentService {
 
     /* Returns true if user is assigned to the specific tournament otherwise false */
     @Override
-    public ResponseEntity<TournamentEnrollmentResponseDTO> enrollForTournament(TournamentEnrollmentDTO enrollment) {
+    public ResponseEntity<TournamentEnrollmentResponseDTO> enrollInOrWithdrawFromTournament(TournamentEnrollmentDTO enrollment) {
         User user = userRepository.findUserByEmail(enrollment.getUserEmail());
         if (user != null) {
             Tournament t = tournamentRepository.findTournamentById(enrollment.getTournamentId());
