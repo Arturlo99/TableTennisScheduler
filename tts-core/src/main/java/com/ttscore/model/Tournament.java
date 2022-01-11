@@ -2,7 +2,7 @@ package com.ttscore.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Table(name = "t_tournament")
 @Entity
@@ -14,15 +14,18 @@ public class Tournament {
     private String city;
     private String street;
     private LocalDateTime date;
-    private String organizer;
     private String description;
     private Integer maxPlayers;
     @ManyToMany(mappedBy = "tournaments")
-    private Set<User> users;
+    private List<User> users;
+    @OneToOne
+    private User organizer;
+    @OneToMany(mappedBy = "tournament")
+    private List<Match> matches;
 
     public Tournament() {}
 
-    public Tournament(String name, String city, String street, LocalDateTime date, String organizer, String description, Integer maxPlayers) {
+    public Tournament(String name, String city, String street, LocalDateTime date, User organizer, String description, Integer maxPlayers) {
         this.name = name;
         this.city = city;
         this.street = street;
@@ -31,6 +34,7 @@ public class Tournament {
         this.description = description;
         this.maxPlayers = maxPlayers;
     }
+
 
     public Integer getId() {
         return id;
@@ -64,19 +68,11 @@ public class Tournament {
         this.date = date;
     }
 
-    public String getOrganizer() {
-        return organizer;
-    }
-
-    public void setOrganizer(String organizer) {
-        this.organizer = organizer;
-    }
-
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
@@ -102,5 +98,21 @@ public class Tournament {
 
     public void setMaxPlayers(Integer maxPlayers) {
         this.maxPlayers = maxPlayers;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
+    }
+
+    public User getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(User organizer) {
+        this.organizer = organizer;
     }
 }

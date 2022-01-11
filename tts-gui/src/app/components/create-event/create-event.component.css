@@ -1,0 +1,18 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    color:black;
+  }
+  
+.example-full-width {
+    width: 100%;
+}
+
+.mat-card{
+    background-color:#4054b4;
+}
+.mat-form-field{
+    margin-top: 15px;
+    background-color: rgb(255, 255, 255);
+}

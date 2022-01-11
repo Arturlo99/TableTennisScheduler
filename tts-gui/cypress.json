@@ -1,0 +1,18 @@
+{
+  "integrationFolder": "cypress/integration",
+  "supportFile": "cypress/support/index.ts",
+  "videosFolder": "cypress/videos",
+  "screenshotsFolder": "cypress/screenshots",
+  "pluginsFile": "cypress/plugins/index.ts",
+  "fixturesFolder": "cypress/fixtures",
+  "baseUrl": "http://localhost:4200",
+  "viewportWidth": 1400,
+  "viewportHeight": 900,
+  "testFiles": [
+    "registration-login-test.ts",
+    "logout-test.ts",
+    "admin-login.ts",
+    "create-event-test.ts",
+    "logout-test.ts"
+  ]
+}

@@ -1,0 +1,54 @@
+<div class="container pt-5">
+    <div class="col-md-5 mx-auto">
+        <div class="jumbotron">
+            <mat-card>
+                <form [formGroup]="createEventForm" (submit)="createNewTournament()" class="example-form">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input id="nameInput" matInput formControlName="name" placeholder="Ex. Table Tennis World Cup" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>City</mat-label>
+                        <input id="cityInput" formControlName="city" matInput placeholder="Ex. Wrocław" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Street</mat-label>
+                        <input id="streetInput" formControlName="street" matInput placeholder="Ex. Gliwicka 23b" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill" required>
+                        <mat-label>Date</mat-label>
+                        <input matInput formControlName="date" [matDatepickerFilter]="myFilter" [matDatepicker]="picker" required>
+                        <mat-datepicker-toggle id="datePicker" matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Hour</mat-label>
+                        <input id="hourInput" formControlName="time" type="time" matInput placeholder="16:00" required>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Players limit</mat-label>
+                        <mat-select id="maxPlayersSelect" formControlName="maxPlayers" required>
+                            <mat-option value="8">8</mat-option>
+                            <mat-option value="12">12</mat-option>
+                            <mat-option value="16">16</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <input id="nameInput" formControlName="description" matInput placeholder="Ex. Entry fee: 5$" >
+                    </mat-form-field>
+
+                    <div style="text-align: right; padding-top: 15px;">
+                        <button id="submitButton" [disabled]="!createEventForm.valid" mat-flat-button color="accent">Create</button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,20 +1,14 @@
 package com.ttscore.dto;
 
+import java.util.List;
+
 public class TournamentEnrollmentResponseDTO {
-    private Integer enrolledPlayers;
     private Boolean userEnrolled;
+    private List<UserForTournamentDTO> users;
 
-    public TournamentEnrollmentResponseDTO(Integer enrolledPlayers, Boolean userEnrolled) {
-        this.enrolledPlayers = enrolledPlayers;
+    public TournamentEnrollmentResponseDTO(Boolean userEnrolled, List<UserForTournamentDTO> users) {
         this.userEnrolled = userEnrolled;
-    }
-
-    public Integer getEnrolledPlayers() {
-        return enrolledPlayers;
-    }
-
-    public void setEnrolledPlayers(Integer enrolledPlayers) {
-        this.enrolledPlayers = enrolledPlayers;
+        this.users = users;
     }
 
     public Boolean getUserEnrolled() {
@@ -23,5 +17,13 @@ public class TournamentEnrollmentResponseDTO {
 
     public void setUserEnrolled(Boolean userEnrolled) {
         this.userEnrolled = userEnrolled;
+    }
+
+    public List<UserForTournamentDTO> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserForTournamentDTO> users) {
+        this.users = users;
     }
 }

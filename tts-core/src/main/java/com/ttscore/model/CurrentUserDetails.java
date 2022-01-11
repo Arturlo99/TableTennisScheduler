@@ -17,7 +17,7 @@ public class CurrentUserDetails implements UserDetails {
         this.user = user;
 
         authorities = new ArrayList<>();
-        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName());
         authorities.add(authority);
     }
 
